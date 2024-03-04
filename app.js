@@ -1,13 +1,18 @@
 require('dotenv').config();
 const express = require('express');
 const expressLayouts = require('express-ejs-layouts');
-const connectDB = require('./server/config/db')
+const connectDB = require('./server/config/db');
+const morgan = require('morgan');
 
 const app = express();
 const port = process.env.PORT || 8080;
 
 //ConnectDB
 connectDB();
+function isOkay() {
+    console.log('connect to mongodb is OKay');// check mongodb có kết nối thành công hay không
+}
+app.use(morgan('combined'));
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -22,7 +27,7 @@ app.set('view engine', 'ejs');
 
 
 //Routes
-app.use('/', require('./server/routes/customer'))
+app.use('/', require('./server/routes/routes'))
 
 // app.get('/', (req, res) => {
 //     const locals = {
