@@ -3,17 +3,18 @@ const express = require('express');
 const expressLayouts = require('express-ejs-layouts');
 const connectDB = require('./server/config/db');
 const morgan = require('morgan');
-const User = require('./server/models/User.js')
+const User = require('./server/models/User.js');
 const cors = require('cors');
+const bodyParser = require('body-parser');
 
 const app = express();
 const port = process.env.PORT || 8080;
 
 //ConnectDB
-connectDB();
-function isOkay() {
-    console.log('connect to mongodb is OKay');// check mongodb có kết nối thành công hay không
-}
+connectDB({
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+});
 //Middleware for parsing request body
 app.use(morgan('combined'));
 
@@ -38,13 +39,10 @@ app.use(
 app.use(expressLayouts);
 app.set('layout', './layouts/main');
 app.set('view engine', 'ejs');
-
+app.use(bodyParser.json());
 
 //Routes
 app.use('/', require('./server/routes/UserRoutes'))
-
-
-// Định nghĩa một endpoint POST mới tại '/users' trong ứng dụng Express.
 
 // Handle 404
 // app.get('*', (req, res) => {
