@@ -26,9 +26,7 @@ app.use(express.json());
 //Option 2: allow Customer Origin 
 app.use(
     cors({
-        origin: 'http://localhost:8080/',
-        methods: ['GET', 'POST', 'UPDATE', 'DELETE'],
-        allowedHeaders: []
+        origin: 'http://localhost:4200/'
     })
 )
 
