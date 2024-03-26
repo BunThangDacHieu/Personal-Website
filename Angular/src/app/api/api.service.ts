@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Posts } from '../../model/Posts';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { Posts } from '../model/Post';
 
 @Injectable({
   providedIn: 'root'
@@ -28,4 +28,3 @@ export class ApiService {
     return this.http.post<Posts>(this.url, post)
   }
 }
-

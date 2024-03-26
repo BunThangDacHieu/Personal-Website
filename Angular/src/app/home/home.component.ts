@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { Users } from '../../model/Users';
-import { Posts } from '../../model/Posts';
-import { ApiService } from '../../shared/shared/api.service';
+import { Component } from '@angular/core';
+import { Posts } from '../model/Post';
+import { ApiService } from '../api/api.service';
+import { Role } from '../model/Role';
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrl: './home.component.css'
 })
-export class DashboardComponent implements OnInit {
+export class HomeComponent {
   post: Posts = {
+    Role: Role.User,  
     UserName: '',
     Blog_id: 0,
     title: '',
@@ -23,7 +24,9 @@ export class DashboardComponent implements OnInit {
   AllPosts: Posts[] = [
   ]
 
-  constructor(private api: ApiService) {}
+  constructor(private api: ApiService) {
+    console.log(this.post.Role); // Kiểm tra xem Role đã được gán đúng chưa
+  }
 
   ngOnInit(): void {
     // Implement ngOnInit if needed
@@ -80,29 +83,31 @@ export class DashboardComponent implements OnInit {
   
   
 
-    CreateNewPost() {
-      if (!this.title || !this.Content || !this.UserName) {
-        alert('Please fill in all fields.');
-        return;
-      }
-  
-      const newPost: Posts = {
-        UserName: this.UserName,
-        Blog_id: Math.floor(Math.random() * 1000), // You might need to generate a random ID here
-        title: this.title,
-        Content: this.Content
-      };
-  
-      this.api.CreateNewPost(newPost).subscribe(
-        res => {
-          this.AllPosts = [];
-          this.SeeAllPost();
-        },
-        err => {
-          console.log(err);
-        }
-      );
+  CreateNewPost() {
+    if (!this.title || !this.Content || !this.UserName) {
+      alert('Please fill in all fields.');
+      return;
     }
+  
+    const newPost: Posts = {
+      Role: Role.User, // Đặt giá trị Role ở đây hoặc thay thế bằng giá trị từ nguồn dữ liệu phù hợp
+      UserName: this.UserName,
+      Blog_id: Math.floor(Math.random() * 1000), // Bạn có thể cần tạo một ID ngẫu nhiên ở đây
+      title: this.title,
+      Content: this.Content
+    };
+  
+    this.api.CreateNewPost(newPost).subscribe(
+      res => {
+        this.AllPosts = [];
+        this.SeeAllPost();
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
+  
 
   editPost(post: Posts){
     this.FindPostbyid(post);

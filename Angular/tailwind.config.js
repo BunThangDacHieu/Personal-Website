@@ -4,11 +4,7 @@ module.exports = {
     "./src/**/*.{html,ts}",
   ],
   theme: {
-    extend: {
-      backgroundImage: {
-        'hero-pattern': "url('/src/app/components/views/image/background.jpg')"
-      }
-    },
+    extend: {},
   },
   plugins: [],
 }
