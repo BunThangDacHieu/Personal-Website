@@ -3,11 +3,13 @@ const uniqueValidator = require('mongoose-unique-validator');
 const crypto = require('crypto-js');
 const jwt = require('jsonwebtoken');
 
+
 const UserSchema = mongoose.Schema(
     {
+
         "roleId": {
             type: String,
-            required: ['admin', 'users'],
+            required: ['Admin', 'Users'],
             validate: {
                 validator: function (value) {
                     if (value === 'user' || value === 'admin') {
@@ -52,6 +54,6 @@ const UserSchema = mongoose.Schema(
     }
 );
 
-const User = mongoose.model('User', UserSchema);
 
+const User = mongoose.model('User', UserSchema);
 module.exports = User;

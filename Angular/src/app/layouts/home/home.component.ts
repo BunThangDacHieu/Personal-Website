@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { Posts } from '../model/Post';
-import { ApiService } from '../api/api.service';
-import { Role } from '../model/Role';
+import { Posts } from '../../model/Post';
+import { ApiService } from '../../api/api.service';
+import { Role } from '../../model/Role';
 
 @Component({
   selector: 'app-home',
@@ -110,11 +110,12 @@ export class HomeComponent {
   
 
   editPost(post: Posts){
-    this.FindPostbyid(post);
     this.title = post.title;
     this.Content = post.Content;
     this.UserName = post.UserName;
-  }
+
+    this.FindPostbyid(post);
+}
 
   UpdatePostInformation() {
     if (!this.title || !this.Content || !this.UserName) {

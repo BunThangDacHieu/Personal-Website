@@ -7,6 +7,7 @@ const User = require('./server/models/User.js');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 
+
 const app = express();
 const port = process.env.PORT || 8080;
 
@@ -52,6 +53,7 @@ app.use(expressLayouts);
 app.set('layout', './layouts/main');
 app.set('view engine', 'ejs');
 app.use(bodyParser.json());
+
 
 //Routes
 app.use('/', require('./server/routes/UserRoutes'))
