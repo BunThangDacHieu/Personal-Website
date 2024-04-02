@@ -13,6 +13,10 @@ const CategorySchema = mongoose.Schema(
             type: String,
             required: true // Sửa thành 'required' thay vì 'dequired'
         }
+
+    },
+    {
+        timestamps: true, // Sửa "Timestamps" thành "timestamps"
     }
 );
 

@@ -19,6 +19,11 @@ const PostSchema = mongoose.Schema(
             type: Buffer,
             required: false
         },
+        "userId": {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User',
+            required: true
+        }
     },
     {
         timestamps: true, // Sửa "Timestamps" thành "timestamps"

@@ -6,33 +6,9 @@ const jwt = require('jsonwebtoken');
 
 const UserSchema = mongoose.Schema(
     {
-
-        "roleId": {
-            type: String,
-            required: ['admin', 'user'],
-            validate: {
-                validator: function (value) {
-                    if (value === 'user' || value === 'admin') {
-                        return true; // 
-                    }
-                    return false; // 
-                },
-                message: 'This account is none-exits'
-            }
-        },
-        "Blog_id": {
-            type: String
-        },
-        "Title": {
-            type: String
-        },
-
         "UserPassword": {
             type: String,
             required: true
-        },
-        "Content": {
-            type: String
         },
         "UserName": {
             type: String,
@@ -41,21 +17,15 @@ const UserSchema = mongoose.Schema(
             match: [/^[a-zA-Z0-9]+$/, "is invalid"], // Kiểm tra ký tự hợp lệ
             index: true,
         },
-
-        "image": {
-            type: String,
-            required: false
-        },
-        "userMail": {
+        "UserMail": {
             type: String,
             required: [true, "can't be blank"],
             match: [/\S+@\S+\.\S+/, 'is invalid'], index: true
         },
-        "status": { // Đổi từ "[status]" thành "status"
-            type: String,
-            required: ['online', 'offline'],
-            index: true,
-        },
+        "IsAdmin": {
+            type: Boolean,
+            default: false,
+        }
     },
     {
         timestamps: true, // Sửa "Timestamps" thành "timestamps"
