@@ -1,0 +1,5 @@
+401 Unauthorized: This error occurs when an API request is made without proper authentication.
+403 Forbidden: This error occurs when the user is authenticated but is not authorized to access the specified resource.
+404 Not Found: This error occurs when the requested resource does not exist.
+405 Method Not Allowed: This error occurs when the HTTP method in the request is not allowed for the specified resource.
+500 Internal Server Error: This error occurs when the server encounters an unexpected condition that prevents it from fulfilling the request.

@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
 
 const PostSchema = mongoose.Schema(
     {
+        "Category": {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Category' // Tham chiếu đến mô hình Category
+        },
         "Title": {
             type: String,
             required: true,
@@ -11,9 +15,8 @@ const PostSchema = mongoose.Schema(
             type: String,
             required: true
         },
-
         "image": {
-            type: String,
+            type: Buffer,
             required: false
         },
     },

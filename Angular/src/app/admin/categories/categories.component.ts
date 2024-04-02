@@ -11,7 +11,7 @@ export class CategoriesComponent implements OnInit{
   formCategory:any;
   ngOnInit(): void {
     this.formCategory = new FormGroup({
-      name: new FormControl(null,[Validators.required]),
+      category: new FormControl(null,[Validators.required]),
 
     })
   }

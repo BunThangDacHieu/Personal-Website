@@ -11,20 +11,6 @@ const bodyParser = require('body-parser');
 const app = express();
 const port = process.env.PORT || 8080;
 
-
-const multer = require('multer');
-// Định nghĩa disk storage cho Multer
-var storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'uploads');
-    },
-    filename: (req, file, cb) => {
-        cb(null, file.fieldname + '-' + Date.now());
-    }
-});
-
-// Khởi tạo upload
-var upload = multer({ storage: storage });
 //ConnectDB
 connectDB({
     useNewUrlParser: true,

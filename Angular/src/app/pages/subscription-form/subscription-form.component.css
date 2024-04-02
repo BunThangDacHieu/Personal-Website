@@ -1,6 +1,7 @@
 .card{
     width: 1115px;
     background-color: var(--secondary-color);
+    margin-left: 90px;
 }
 .d-flex .form-group,
 .d-flex .col-md-2 {
