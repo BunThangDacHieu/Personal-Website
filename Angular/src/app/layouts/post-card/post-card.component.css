@@ -1,0 +1,7 @@
+.card{
+    max-width: 400px;
+    max-height: fit-content;
+    height: auto;
+    border: none;
+    box-shadow: 0px 0px 33px -10px rgb(71, 114, 254, 0.3);
+}

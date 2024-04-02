@@ -1,0 +1,25 @@
+.card{
+    width: 1115px;
+    background-color: var(--secondary-color);
+}
+.d-flex .form-group,
+.d-flex .col-md-2 {
+    flex: 1;
+    margin-right: 10px; /* Để tạo khoảng cách giữa các input và nút */
+}
+
+.d-flex .col-md-2:last-child {
+    margin-right: 0; /* Loại bỏ khoảng cách margin bên phải của nút cuối cùng */
+}
+
+.btn-sub{
+    background-color: var(--primary-color);
+    text-align: center;
+    height: 60px;
+    width: 200px;
+    
+}
+
+.subs-text{
+    width: 500px;
+}

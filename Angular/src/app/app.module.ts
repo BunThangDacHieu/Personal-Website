@@ -1,42 +1,53 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
-
+import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HomeComponent } from './layouts/home/home.component';
-import { RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './layouts/header/header.component';
 import { FooterComponent } from './layouts/footer/footer.component';
-import { AboutComponent } from './layouts/about/about/about.component';
-import { ContactComponent } from './layouts/contact/contact.component';
-import { CategoryComponent } from './admin/category/category.component';
+import { CategoryNarbarComponent } from './layouts/category-narbar/category-narbar.component';
+import { HomeComponent } from './pages/home/home.component';
+import { SingleCategoryComponent } from './pages/single-category/single-category.component';
+import { SinglePostComponent } from './pages/single-post/single-post.component';
+import { TermAndConditionComponent } from './pages/term-and-condition/term-and-condition.component';
+import { ContactUsComponent } from './pages/contact-us/contact-us.component';
+import { SubscriptionFormComponent } from './pages/subscription-form/subscription-form.component';
+import { CommentsFormComponent } from './comments/comments-form/comments-form.component';
+import { CommentsListComponent } from './comments/comments-list/comments-list.component';
+import { AboutUsComponent } from './pages/about-us/about-us.component';
+import { PostCardComponent } from './layouts/post-card/post-card.component';
+import { DashboardComponent } from './admin/dashboard/dashboard.component';
+import { CategoriesComponent } from './admin/categories/categories.component';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
-import { SignupComponent } from './layouts/signup/signup.component';
-import { LoginComponent } from './layouts/login/login.component';
+import { ReactiveFormsModule } from "@angular/forms";
 
 @NgModule({
   declarations: [ 
     AppComponent,
-    HomeComponent,
-    SignupComponent,
     HeaderComponent,
     FooterComponent,
-    AboutComponent,
-    ContactComponent,
-    CategoryComponent,
-    LoginComponent  
+    CategoryNarbarComponent,
+    HomeComponent,
+    SingleCategoryComponent,
+    SinglePostComponent,
+    TermAndConditionComponent,
+    ContactUsComponent,
+    SubscriptionFormComponent,
+    CommentsFormComponent,
+    CommentsListComponent,
+    AboutUsComponent,
+    PostCardComponent,
+    DashboardComponent,
+    CategoriesComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    RouterModule,
-    FormsModule, 
-    HttpClientModule  
+    FormsModule , 
+    HttpClientModule,
+    ReactiveFormsModule
   ],
-  providers: [
-    provideClientHydration()
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

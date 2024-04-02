@@ -1,30 +1,30 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { Posts } from '../model/Post';
+import { Users } from '../model/Users';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
-  url:string = 'http://localhost:8080/post'
+  url:string = 'http://localhost:8080/users'
   constructor(private http:HttpClient){}
 
   //get all Usser data
-  SeeAllPost():Observable<Posts[]>{
-    return this.http.get<Posts[]>(this.url);
+  SeeAllUser():Observable<Users[]>{
+    return this.http.get<Users[]>(this.url);
   }
 
-  FindPostbyid(Blog_id:string):Observable<Posts[]>{
-    return this.http.get<Posts[]>(this.url + '/'+ Blog_id);
+  FindUserbyid(Blog_id:string):Observable<Users[]>{
+    return this.http.get<Users[]>(this.url + '/'+ Blog_id);
   }
-  DeletePostbyId(Blog_id:string):Observable<Posts[]>{
-    return this.http.delete<Posts[]>(this.url + '/'+ Blog_id);
+  DeleteUserbyId(Blog_id:string):Observable<Users[]>{
+    return this.http.delete<Users[]>(this.url + '/'+ Blog_id);
   }
-  UpdatePostInformation(post: Posts):Observable<Posts>{
-    return this.http.put<Posts>(this.url + '/' + post.Blog_id, post)
+  UpdateUserInformation(users: Users):Observable<Users>{
+    return this.http.put<Users>(this.url + '/' + users.Blog_id, users)
   }
-  CreateNewPost(post: Posts):Observable<Posts>{
-    return this.http.post<Posts>(this.url, post)
+  CreateNewUser(users: Users):Observable<Users>{
+    return this.http.post<Users>(this.url, users)
   }
 }

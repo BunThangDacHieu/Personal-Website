@@ -1,19 +1,27 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './layouts/home/home.component';
-import { SignupComponent } from './layouts/signup/signup.component';
-import { AboutComponent } from './layouts/about/about/about.component';
-import { ContactComponent } from './layouts/contact/contact.component';
-import { LoginComponent } from './layouts/login/login.component';
+import { HomeComponent } from './pages/home/home.component';
+import { SingleCategoryComponent } from './pages/single-category/single-category.component';
+import { SinglePostComponent } from './pages/single-post/single-post.component';
+import { AboutUsComponent } from './pages/about-us/about-us.component';
+import { ContactUsComponent } from './pages/contact-us/contact-us.component';
+import { TermAndConditionComponent } from './pages/term-and-condition/term-and-condition.component';
+import { DashboardComponent } from './admin/dashboard/dashboard.component';
+import { CategoriesComponent } from './admin/categories/categories.component';
+
 
 
 const routes: Routes = [
-  {path: '', redirectTo:'home', pathMatch: 'full'},
-  {path: 'home', component: HomeComponent},
-  {path: 'signup', component: SignupComponent},
-  {path: 'about', component: AboutComponent},
-  {path: 'contact', component: ContactComponent},
-  {path: 'login', component: LoginComponent}
+  {path: '', component: HomeComponent,},
+  {path: 'category', component: SingleCategoryComponent},
+  {path:  'post', component: SinglePostComponent},
+  {path: 'about', component: AboutUsComponent},
+  {path: 'contact', component: ContactUsComponent},
+  {path: 'term', component: TermAndConditionComponent},
+  {path: 'dashboard', 
+    component: DashboardComponent,
+  },
+  {path: 'dashboard/categories', component: CategoriesComponent }
 ];
 
 @NgModule({

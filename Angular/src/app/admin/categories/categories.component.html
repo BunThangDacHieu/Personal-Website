@@ -1,0 +1,20 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 bg-theme-primary shadow-effect">
+            <h3 class="text-center mt-5 bg-theme-primary">New Categories</h3>
+            <p class="text-center mb-5">You can add new Categories for Here</p>
+
+            <form class="d-flex justify-content-center align-items-center mb-5" [formGroup]="formCategory"
+                (ngSubmit)="onSubmit()">
+                <div class="form-group mr-md-2 mb-2">
+                    <input formControlName="name" type=" text"
+                        class="form-control form-control-sm shadow-effect bg-theme-primary"
+                        placeholder="Add New Category">
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-info mr-md-2 mb-2">Add Category</button>
+                </div>
+            </form>
+
+        </div>
+    </div>

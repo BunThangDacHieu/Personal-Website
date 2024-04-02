@@ -9,7 +9,7 @@ const UserSchema = mongoose.Schema(
 
         "roleId": {
             type: String,
-            required: ['Admin', 'Users'],
+            required: ['admin', 'user'],
             validate: {
                 validator: function (value) {
                     if (value === 'user' || value === 'admin') {
@@ -26,14 +26,22 @@ const UserSchema = mongoose.Schema(
         "Title": {
             type: String
         },
+
+        "UserPassword": {
+            type: String,
+            required: true
+        },
         "Content": {
             type: String
         },
         "UserName": {
             type: String,
             required: [true, "can't be blank"],
-            unique: true, match: [/^[a-zA-Z0-9] +$/, "is invalid"], index: true,
+            unique: true,
+            match: [/^[a-zA-Z0-9]+$/, "is invalid"], // Kiểm tra ký tự hợp lệ
+            index: true,
         },
+
         "image": {
             type: String,
             required: false
