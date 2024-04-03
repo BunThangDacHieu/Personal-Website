@@ -11,12 +11,12 @@ const CategorySchema = mongoose.Schema(
         },
         "Name": {
             type: String,
-            required: true // Sửa thành 'required' thay vì 'dequired'
+            required: true
         }
 
     },
     {
-        timestamps: true, // Sửa "Timestamps" thành "timestamps"
+        timestamps: true,
     }
 );
 

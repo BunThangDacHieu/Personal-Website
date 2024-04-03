@@ -20,6 +20,7 @@ import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { CategoriesComponent } from './admin/categories/categories.component';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from "@angular/forms";
+import { MessagesModule } from 'primeng/messages';
 
 @NgModule({
   declarations: [ 
@@ -45,7 +46,8 @@ import { ReactiveFormsModule } from "@angular/forms";
     AppRoutingModule,
     FormsModule , 
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MessagesModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,15 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { Users } from '../model/Users';
 import { Category } from '../model/Category';
 import { Posts } from '../model/Post';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root'  
 })
 export class ApiService {
-  private baseUrl: string = 'http://localhost:8080';
+  private baseUrl: string = 'http://localhost:8080'; 
   private categoryUrl: string = `${this.baseUrl}/Category`;
   private postUrl: string = `${this.baseUrl}/post`;
 
@@ -25,11 +24,11 @@ export class ApiService {
   }
 
   Update_Category_Information(category: Category): Observable<Category[]> {
-    return this.http.put<Category[]>(`${this.categoryUrl}/${category.name}`, category);
+    return this.http.put<Category[]>(`${this.categoryUrl}/${category.Name}`, category);
   }
 
-  Delete_Category_by_Name(name: string): Observable<Category[]> {
-    return this.http.delete<Category[]>(`${this.categoryUrl}/${name}`);
+  Delete_Category_by_Name(Name: string): Observable<Category[]> {
+    return this.http.delete<Category[]>(`${this.categoryUrl}/${Name}`);
   }
 
   // Các phương thức liên quan đến Post
