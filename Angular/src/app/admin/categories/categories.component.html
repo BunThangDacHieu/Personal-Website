@@ -6,15 +6,47 @@
 
             <form class="d-flex justify-content-center align-items-center mb-5" [formGroup]="formCategory"
                 (ngSubmit)="onSubmit()">
-                <div class="form-group mr-md-2 mb-2">
-                    <input formControlName="category" type=" text"
-                        class="form-control form-control-sm shadow-effect bg-theme-primary"
-                        placeholder="Add New Category">
+                <input formControlName="category" type="text"
+                    class="form-control form-control-sm shadow-effect bg-theme-primary" placeholder="Add New Category"
+                    require />
+                <!-- Chỗ này check nếu submit và có lỗi required thì hiển thị cảnh báo -->
+
+                <div role="alert" aria-live="assertive" class="alert alert-danger" *ngIf="
+            isSubmit && formCategory?.controls['category']?.errors?.required
+          ">
+                    Category field is required
                 </div>
+
                 <div class="col-md-2">
                     <button class="btn btn-info mr-md-2 mb-2">Add Category</button>
                 </div>
             </form>
-
         </div>
     </div>
+
+    <div class="row justify-content-center mb-5">
+        <div class="col-md-6">
+            <div class="card shadow-effect">
+                <div class="card-body">
+                    <table class="table">
+                        <thead class="text-center">
+                            <tr>
+                                <td>No</td>
+                                <td>Category</td>
+                                <td>Action</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let Categories of CategoryArray; let i = index">
+                                <td>{{i}}</td>
+                                <td>{{Categories.Number}}</td>
+                                <td>{{Categories}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

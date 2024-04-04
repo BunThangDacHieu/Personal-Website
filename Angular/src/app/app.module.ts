@@ -21,6 +21,8 @@ import { CategoriesComponent } from './admin/categories/categories.component';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from "@angular/forms";
 import { MessagesModule } from 'primeng/messages';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [ 
@@ -47,7 +49,9 @@ import { MessagesModule } from 'primeng/messages';
     FormsModule , 
     HttpClientModule,
     ReactiveFormsModule,
-    MessagesModule
+    MessagesModule,
+    ToastrModule.forRoot(),
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
