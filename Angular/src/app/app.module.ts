@@ -25,6 +25,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AllPostComponent } from './admin/post/all-post/all-post.component';
 import { NewsPostComponent } from './admin/post/news-post/news-post.component';
+import { LoginComponent } from './admin/login/login.component';
 
 @NgModule({
   declarations: [ 
@@ -45,7 +46,8 @@ import { NewsPostComponent } from './admin/post/news-post/news-post.component';
     DashboardComponent,
     CategoriesComponent,
     AllPostComponent,
-    NewsPostComponent
+    NewsPostComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

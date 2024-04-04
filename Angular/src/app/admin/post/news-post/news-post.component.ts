@@ -1,19 +1,25 @@
 import { Component, OnInit } from '@angular/core';
+import { Category } from '../../../model/Category';
+import { ApiService } from '../../../api/api.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-news-post',
   templateUrl: './news-post.component.html',
-  styleUrls: ['./news-post.component.css'] // Sửa styleUrl thành styleUrls
+  styleUrls: ['./news-post.component.css']
 })
 export class NewsPostComponent implements OnInit {
+  categories: Category[] = [];
   permalink: string = '';
   title: string = '';
-  imgSrc: string ='./assets/istockphoto-1147544807-612x612.jpg';
-  selectedImg: File | null = null; // Khai báo thuộc tính selectedImg
+  imgSrc: string = './assets/istockphoto-1147544807-612x612.jpg';
+  selectedImg: File | null = null;
 
-  constructor(){}
+  constructor(private api: ApiService, private toastr: ToastrService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.loadCategories();
+  }
 
   onTitleChange($event: any) {
     this.title = $event.target.value;
@@ -26,11 +32,26 @@ export class NewsPostComponent implements OnInit {
   }
 
   showPreview($event: any) {
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      this.imgSrc = e.target?.result as string;
+    if ($event && $event.target && $event.target.files && $event.target.files[0]) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        this.imgSrc = e.target?.result as string;
+      }
+      reader.readAsDataURL($event.target.files[0]);
+      this.selectedImg = $event.target.files[0];
     }
-    reader.readAsDataURL($event.target.files[0]);
-    this.selectedImg = $event.target.files[0];
   }
+
+  loadCategories() {
+    this.api.See_All_Category().subscribe(
+      categories => {
+        this.categories = categories;
+        console.log(this.categories); // Kiểm tra dữ liệu sau khi gán cho thuộc tính categories
+      },
+      error => {
+        console.error('Error loading categories:', error);
+      }
+    );
+  }
+  
 }
