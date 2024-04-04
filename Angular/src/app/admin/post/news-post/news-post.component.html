@@ -8,15 +8,15 @@
 
     <form>
         <div class="row">
-            <div class="col-md-7">
+            <div class="col-md-7 mb-5">
                 <div class="card shadow-effect">
                     <div class="card-body">
                         <label>Title</label>
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control" (keydown.enter)="onTitleChange($event)">
                     </div>
-                    <div class="card-body">
+                    <div class=" card-body">
                         <label>PermalLink</label>
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control" [(ngModel)]='permalink' name="permalink" disabled>
                     </div>
                     <div class="card-body">
                         <label>Excerpt</label>
@@ -24,8 +24,8 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-5">
-                <div class="form-group">
+            <div class="col-md-5 card shadow-effect pb-5">
+                <div class="form-group ">
                     <label for="">Select a post category</label>
                     <select class="form-control">
                         <option value="" disabled>Please select a category</option>
@@ -33,7 +33,8 @@
                 </div>
                 <div class="form-group">
                     <label for="">Post Image</label>
-                    <input type="file" class="form-control">
+                    <img [src]="imgSrc" class="form-control img-fluid  img-preview ">
+                    <input type="file" class="form-control" accept="image/*" (change)="showPreview($event)">
                 </div>
             </div>
         </div>
