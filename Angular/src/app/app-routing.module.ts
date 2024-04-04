@@ -8,20 +8,24 @@ import { ContactUsComponent } from './pages/contact-us/contact-us.component';
 import { TermAndConditionComponent } from './pages/term-and-condition/term-and-condition.component';
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { CategoriesComponent } from './admin/categories/categories.component';
+import { AllPostComponent } from './admin/post/all-post/all-post.component';
+import { NewsPostComponent } from './admin/post/news-post/news-post.component';
 
 
 
 const routes: Routes = [
+  //User
   {path: '', component: HomeComponent,},
   {path: 'category', component: SingleCategoryComponent},
   {path:  'post', component: SinglePostComponent},
   {path: 'about', component: AboutUsComponent},
   {path: 'contact', component: ContactUsComponent},
   {path: 'term', component: TermAndConditionComponent},
-  {path: 'dashboard', 
-    component: DashboardComponent,
-  },
-  {path: 'dashboard/categories', component: CategoriesComponent }
+  //Admin
+  {path: 'dashboard', component: DashboardComponent,},
+  {path: 'dashboard/categories', component: CategoriesComponent },
+  {path: 'dashboard/post', component: AllPostComponent},
+  {path: 'dashboard/post/new', component: NewsPostComponent},
 ];
 
 @NgModule({

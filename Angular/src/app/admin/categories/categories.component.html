@@ -1,26 +1,28 @@
 <div class="container">
     <div class="row">
-        <div class="col-md-12 bg-theme-primary shadow-effect">
-            <h3 class="text-center mt-5 bg-theme-primary">New Categories</h3>
-            <p class="text-center mb-5">You can add new Categories for Here</p>
+        <div class="card shadow-effect bg-primary-theme">
+            <div class="col-md-12">
+                <h3 class="text-center mt-5 bg-theme-primary">New Categories</h3>
+                <p class="text-center mb-5">You can add new Categories for Here</p>
+                <form class="d-flex justify-content-center align-items-center mb-5" [formGroup]="formCategory"
+                    (ngSubmit)="onSubmit()">
+                    <input formControlName="category" type="text"
+                        class="form-control form-control-sm shadow-effect bg-theme-primary"
+                        placeholder="Add New Category" require />
+                    <!-- Chỗ này check nếu submit và có lỗi required thì hiển thị cảnh báo -->
 
-            <form class="d-flex justify-content-center align-items-center mb-5" [formGroup]="formCategory"
-                (ngSubmit)="onSubmit()">
-                <input formControlName="category" type="text"
-                    class="form-control form-control-sm shadow-effect bg-theme-primary" placeholder="Add New Category"
-                    require />
-                <!-- Chỗ này check nếu submit và có lỗi required thì hiển thị cảnh báo -->
-
-                <div role="alert" aria-live="assertive" class="alert alert-danger" *ngIf="
+                    <div role="alert" aria-live="assertive" class="alert alert-danger" *ngIf="
             isSubmit && formCategory?.controls['category']?.errors?.required
           ">
-                    Category field is required
-                </div>
+                        Category field is required
+                    </div>
 
-                <div class="col-md-2">
-                    <button class="btn btn-info mr-md-2 mb-2">Add Category</button>
-                </div>
-            </form>
+                    <div class="col-md-2">
+                        <button class="btn btn-info btn-sm col-md-7">Add Category</button>
+                        <button class="btn btn-warning btn-sm" [routerLink]="'/dashboard'">Back to Dashboard</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 
@@ -40,7 +42,9 @@
                             <tr *ngFor="let Categories of CategoryArray; let i = index">
                                 <td>{{i}}</td>
                                 <td>{{Categories.Number}}</td>
-                                <td>{{Categories}}</td>
+                                <td>
+                                    <button class="btn btn-warning btn-sm" (click)="OnEdit(Categories)">Edit</button>
+                                </td>
                             </tr>
                         </tbody>
                     </table>

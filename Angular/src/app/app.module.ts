@@ -23,6 +23,8 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { MessagesModule } from 'primeng/messages';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AllPostComponent } from './admin/post/all-post/all-post.component';
+import { NewsPostComponent } from './admin/post/news-post/news-post.component';
 
 @NgModule({
   declarations: [ 
@@ -41,7 +43,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AboutUsComponent,
     PostCardComponent,
     DashboardComponent,
-    CategoriesComponent
+    CategoriesComponent,
+    AllPostComponent,
+    NewsPostComponent
   ],
   imports: [
     BrowserModule,

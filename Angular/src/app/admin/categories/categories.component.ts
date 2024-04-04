@@ -19,7 +19,7 @@ export class CategoriesComponent implements OnInit{
     this.formCategory = new FormGroup({
       category: new FormControl(null,[Validators.required]),
     });
-    this.loadCategories();
+    this.SeeAllCategory();
   }
   onSubmit(){
     this.isSubmit = true;
@@ -32,7 +32,7 @@ export class CategoriesComponent implements OnInit{
         console.log('Category Add Successfully', response);
         this.formCategory.reset();
         this.toastr.success('Add Category Successfully')
-        this.loadCategories();
+        this.SeeAllCategory();
       },
       error =>{
         console.error('Error adding category:', error.error); // Log the specific error message from the server
@@ -42,7 +42,7 @@ export class CategoriesComponent implements OnInit{
     console.log(formData)
   }
   
-  loadCategories() {
+  SeeAllCategory() {
     this.api.See_All_Category().subscribe(
       categories => {
         if (Array.isArray(categories)) { // Kiểm tra nếu categories là một mảng
@@ -62,7 +62,9 @@ export class CategoriesComponent implements OnInit{
   }
   
 
-
+  OnEdit(category: any){ 
+    console.log(category);
+  }
 
    hasValidator(control: string, validator: string): boolean {
     return !!this.formCategory.valid[control].validators(control).hasOwnProperty(validator);
