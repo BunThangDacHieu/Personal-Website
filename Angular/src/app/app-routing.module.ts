@@ -10,9 +10,7 @@ import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { CategoriesComponent } from './admin/categories/categories.component';
 import { AllPostComponent } from './admin/post/all-post/all-post.component';
 import { NewsPostComponent } from './admin/post/news-post/news-post.component';
-import { LoginComponent } from './admin/login/login.component';
-
-
+import { LoginComponent } from './pages/login/login.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},

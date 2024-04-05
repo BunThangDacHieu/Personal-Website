@@ -9,19 +9,21 @@
                     </div>
                     <form [formGroup]="formLogin" (ngSubmit)="onSubmit()">
                         <div class="form-group" [ngClass]="{
-                            'has-danger': formLogin.get('email').touched && formLogin.get('email').invalid,
-                            'has-success': formLogin.get('email').valid
+                            'has-danger': formLogin.get('email')?.touched && formLogin.get('email')?.invalid,
+                            'has-success': formLogin.get('email')?.valid
                         }">
                             <input type="email" class="form-control" name="email" formControlName="email" id="email"
                                 placeholder="Email Address">
                             <div
-                                *ngIf="formLogin.get('email').invalid && (formLogin.get('email').dirty || formLogin.get('email').touched)">
-                                <div *ngIf="formLogin.get('email').errors.required" class="form-control-feedback">Email
-                                    cannot be empty!</div>
-                                <div *ngIf="formLogin.get('email').errors?.email" class="form-control-feedback">Please
+                                *ngIf="formLogin.get('email')?.invalid && (formLogin.get('email')?.dirty || formLogin.get('email')?.touched)">
+                                <div *ngIf="formLogin.get('email')?.errors?.['required']" class="form-control-feedback">
+                                    Email cannot be empty!</div>
+                                <div *ngIf="formLogin.get('email')?.errors?.['email']" class="form-control-feedback">
+                                    Please
                                     enter a valid email address!</div>
                             </div>
                         </div>
+
 
                         <div class="form-group" [ngClass]="{
                             'has-danger': formLogin.get('password').touched && formLogin.get('password').invalid,
@@ -38,7 +40,7 @@
                             </div>
 
                         </div>
-                        <button type="submit" class="btn btn-secondary btn-block"
+                        <button type="submit" class="btn btn-secondary btn-block col-md-6"
                             [disabled]='formLogin.invalid'>Login</button>
                     </form>
                 </div>
