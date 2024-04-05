@@ -15,12 +15,12 @@ export class ApiService {
   constructor(private http: HttpClient) {}
 
   // Các phương thức liên quan đến Category
-  See_All_Category(): Observable<Category[]> {
-    return this.http.get<Category[]>(this.categoryUrl);
+  See_All_Category(): Observable<any> {
+    return this.http.get<any>(this.categoryUrl);
   }
 
-  Add_A_New_Category(category: Category): Observable<Category[]> {
-    return this.http.post<Category[]>(this.categoryUrl, category);
+  Add_A_New_Category(category: Category): Observable<any> {
+    return this.http.post<any>(this.categoryUrl, category);
   }
 
   Update_Category_Information(category: Category): Observable<Category[]> {

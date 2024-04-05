@@ -10,10 +10,13 @@ import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { CategoriesComponent } from './admin/categories/categories.component';
 import { AllPostComponent } from './admin/post/all-post/all-post.component';
 import { NewsPostComponent } from './admin/post/news-post/news-post.component';
+import { LoginComponent } from './admin/login/login.component';
 
 
 
 const routes: Routes = [
+  {path: 'login', component: LoginComponent},
+
   //User
   {path: '', component: HomeComponent,},
   {path: 'category', component: SingleCategoryComponent},
@@ -22,7 +25,7 @@ const routes: Routes = [
   {path: 'contact', component: ContactUsComponent},
   {path: 'term', component: TermAndConditionComponent},
   //Admin
-  {path: 'dashboard', component: DashboardComponent,},
+  {path: 'dashboard', component: DashboardComponent},
   {path: 'dashboard/categories', component: CategoriesComponent },
   {path: 'dashboard/post', component: AllPostComponent},
   {path: 'dashboard/post/new', component: NewsPostComponent},

@@ -19,7 +19,7 @@
 
                     <div class="col-md-2">
                         <button class="btn btn-info btn-sm col-md-7">Add Category</button>
-                        <button class="btn btn-warning btn-sm" [routerLink]="'/dashboard'">Back to Dashboard</button>
+                        <button class="btn btn-warning btn-sm" routerLink="/dashboard">Back to Dashboard</button>
                     </div>
                 </form>
             </div>
@@ -39,11 +39,11 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let Categories of CategoryArray; let i = index">
+                            <tr *ngFor="let category of categories; let i = index">
                                 <td>{{i}}</td>
-                                <td>{{Categories.Number}}</td>
+                                <td>{{category.Number}}</td>
                                 <td>
-                                    <button class="btn btn-warning btn-sm" (click)="OnEdit(Categories)">Edit</button>
+                                    <button class="btn btn-warning btn-sm" (click)="OnEdit(categories)">Edit</button>
                                 </td>
                             </tr>
                         </tbody>

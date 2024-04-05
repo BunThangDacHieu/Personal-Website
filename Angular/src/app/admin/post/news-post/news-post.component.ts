@@ -9,7 +9,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./news-post.component.css']
 })
 export class NewsPostComponent implements OnInit {
-  categories: Category[] = [];
+  categories:any = [];
   permalink: string = '';
   title: string = '';
   imgSrc: string = './assets/istockphoto-1147544807-612x612.jpg';
@@ -18,7 +18,7 @@ export class NewsPostComponent implements OnInit {
   constructor(private api: ApiService, private toastr: ToastrService) {}
 
   ngOnInit(): void {
-    this.loadCategories();
+    this.SeeAllCategory();
   }
 
   onTitleChange($event: any) {
@@ -42,11 +42,11 @@ export class NewsPostComponent implements OnInit {
     }
   }
 
-  loadCategories() {
+  SeeAllCategory() {
     this.api.See_All_Category().subscribe(
       categories => {
-        this.categories = categories;
-        console.log(this.categories); // Kiểm tra dữ liệu sau khi gán cho thuộc tính categories
+        this.categories = categories.data;
+        console.table(this.categories); // Kiểm tra dữ liệu sau khi gán cho thuộc tính categories
       },
       error => {
         console.error('Error loading categories:', error);

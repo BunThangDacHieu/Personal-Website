@@ -10,7 +10,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./categories.component.css']
 })
 export class CategoriesComponent implements OnInit{
-  CategoryArray: Category[] = [];
+  categories: any = [];
   constructor(private api:ApiService,
               private toastr: ToastrService){}
   formCategory:any;
@@ -46,8 +46,8 @@ export class CategoriesComponent implements OnInit{
     this.api.See_All_Category().subscribe(
       categories => {
         if (Array.isArray(categories)) { // Kiểm tra nếu categories là một mảng
-          this.CategoryArray = categories.map((category, index) => {
-            return { ...category, Number: index + 1 };
+          this.SeeAllCategory = this.categories.data((categories: any, index: number) => {
+            return { ...categories, Number: index + 1 };
           });
         } else {
           console.error('Returned data is not an array:', categories);
@@ -62,8 +62,8 @@ export class CategoriesComponent implements OnInit{
   }
   
 
-  OnEdit(category: any){ 
-    console.log(category);
+  OnEdit(formCategory: any){ 
+    console.log(formCategory);
   }
 
    hasValidator(control: string, validator: string): boolean {
