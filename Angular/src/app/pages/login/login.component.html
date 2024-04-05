@@ -9,16 +9,18 @@
                     </div>
                     <form [formGroup]="formLogin" (ngSubmit)="onSubmit()">
                         <div class="form-group" [ngClass]="{
-                            'has-danger': formLogin.get('email')?.touched && formLogin.get('email')?.invalid,
-                            'has-success': formLogin.get('email')?.valid
+                            'has-danger': formLogin.get('UserMail')?.touched && formLogin.get('UserMail')?.invalid,
+                            'has-success': formLogin.get('UserMail')?.valid
                         }">
-                            <input type="email" class="form-control" name="email" formControlName="email" id="email"
-                                placeholder="Email Address">
+                            <input type="email" class="form-control" name="UserMail" formControlName="UserMail"
+                                id="UserMail" placeholder="Email Address">
                             <div
-                                *ngIf="formLogin.get('email')?.invalid && (formLogin.get('email')?.dirty || formLogin.get('email')?.touched)">
-                                <div *ngIf="formLogin.get('email')?.errors?.['required']" class="form-control-feedback">
+                                *ngIf="formLogin &&formLogin.get('UserMail')?.invalid && (formLogin.get('UserMail')?.dirty || formLogin.get('UserMail')?.touched)">
+                                <div *ngIf="formLogin.get('UserMail').errors?.['required']"
+                                    class="form-control-feedback">
                                     Email cannot be empty!</div>
-                                <div *ngIf="formLogin.get('email')?.errors?.['email']" class="form-control-feedback">
+                                <div *ngIf="formLogin.get('UserMail')?.errors?.['UserMail']"
+                                    class="form-control-feedback">
                                     Please
                                     enter a valid email address!</div>
                             </div>
@@ -26,22 +28,23 @@
 
 
                         <div class="form-group" [ngClass]="{
-                            'has-danger': formLogin.get('password').touched && formLogin.get('password').invalid,
-                            'has-success': formLogin.get('password').valid
+                            'has-danger': formLogin.get('UserPassword').touched && formLogin.get('UserPassword').invalid,
+                            'has-success': formLogin.get('UserPassword').valid
                         }">
                             <input type="password" class="form-control" placeholder="Password"
-                                formControlName="password" name="password" id="password"
-                                [ngClass]="{'is-invalid': password.touched && password.invalid}">
+                                formControlName="UserPassword" name="UserPassword" id="UserPassword"
+                                [ngClass]="{'is-invalid': UserPassword.touched && UserPassword.invalid}">
                             <div
-                                *ngIf="formLogin.get('password').invalid && (formLogin.get('password').dirty || formLogin.get('password').touched)">
-                                <div *ngIf="formLogin.get('password').errors.required" class="form-control-feedback">
+                                *ngIf="formLogin.get('UserPassword').invalid && (formLogin.get('UserPassword').dirty || formLogin.get('UserPassword').touched)">
+                                <div *ngIf="fromLogin && formLogin.get('UserPassword').errors?.required"
+                                    class="form-control-feedback">
                                     Password
                                     cannot be empty!</div>
                             </div>
 
                         </div>
                         <button type="submit" class="btn btn-secondary btn-block col-md-6"
-                            [disabled]='formLogin.invalid'>Login</button>
+                            [disabled]='!formLogin || formLogin.invalid'>Login</button>
                     </form>
                 </div>
             </div>

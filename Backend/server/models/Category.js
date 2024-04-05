@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const UniqueValidator = require('mongoose-unique-validator')
 
 const CategorySchema = mongoose.Schema(
     {
@@ -20,6 +21,7 @@ const CategorySchema = mongoose.Schema(
     }
 );
 
+CategorySchema.plugin(UniqueValidator)
 const Category = mongoose.model('Category', CategorySchema);
 
 module.exports = Category;

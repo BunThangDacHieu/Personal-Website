@@ -8,17 +8,18 @@ const UserSchema = mongoose.Schema(
     {
         "UserPassword": {
             type: String,
+            unique: true,
             required: true
         },
         "UserName": {
             type: String,
-            required: [true, "can't be blank"],
             unique: true,
             match: [/^[a-zA-Z0-9]+$/, "is invalid"], // Kiểm tra ký tự hợp lệ
             index: true,
         },
         "UserMail": {
             type: String,
+            unique: true,
             required: [true, "can't be blank"],
             match: [/\S+@\S+\.\S+/, 'is invalid'], index: true
         },

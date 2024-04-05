@@ -1,7 +1,38 @@
-const mongoType = require('mongoose').Types;
 const Category = require("../models/Category");
 const Post = require('../models/Post');
-const crypto = require('crypto-js');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
+const User = require('../models/User')
+
+exports.LoginUser = async (req, res) => {
+    try {
+        const { userMail, UserPassword } = req.body;
+        // Tìm kiếm người dùng trong cơ sở dữ liệu bằng email
+        const user = await User.findOne({ userMail });
+
+        // Kiểm tra xem người dùng có tồn tại không
+        if (!user) {
+            return res.status(401).json({ message: 'Email or password is incorrect' });
+        }
+
+        // So sánh mật khẩu
+        const isPasswordValid = await bcrypt.compare(UserPassword, user.UserPassword);
+        if (!isPasswordValid) {
+            return res.status(401).json({ message: 'Email or password is incorrect' });
+        }
+
+        // Tạo JWT
+        const token = jwt.sign({ userId: user._id }, 'your-secret-key', { expiresIn: '1h' });
+
+        // Gửi JWT về client
+        res.status(200).json({ token });
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).json({ message: 'Server error' });
+    }
+};
+
+
 
 //Tạo ra một Category mới + điều kiện liệu dữ liệu đó đã tồn tại hay chưa
 exports.Add_A_New_Category = async (req, res) => {
@@ -97,106 +128,103 @@ exports.Delete_Category_by_Name = async (req, res) => {
         res.status(500).send({ message: "Internal Server Error" });
     }
 };
-// exports.CreateNewUser = async (req, res) => {
-//     try {
-//         // Check if all required fields are present in the request body
-//         const { UserPassword, userMail } = req.body;
-//         if (!UserPassword || !userMail) {
-//             // If one or more required fields are missing, send a 400 response with an error message
-//             return res.status(400).send({ message: "Please provide both UserPassword and userMail" });
-//         }
+exports.CreateNewUser = async (req, res) => {
+    try {
+        // Check if all required fields are present in the request body
+        const { UserPassword, UserMail } = req.body;
+        if (!UserPassword || !UserMail) {
+            // If one or more required fields are missing, send a 400 response with an error message
+            return res.status(400).send({ message: "Please provide UserPassword and UserMail" });
+        }
 
-//         // Encrypt the password before saving (you can add this if needed)
+        // Encrypt the password before saving (you can add this if needed)
 
-//         // Create a new user object with only UserPassword and userMail
-//         const newUser = new User({
-//             UserPassword,
-//             userMail,
-//         });
+        // Create a new user object with only UserPassword and userMail
+        const newUser = new User({
+            UserPassword,
+            UserMail
+        });
 
-//         // Save the new user object to the database
-//         const user = await newUser.save();
+        // Save the new user object to the database
+        const user = await newUser.save();
 
-//         // Send a 201 response with the newly created user object
-//         return res.status(201).send(user);
-//     } catch (error) {
-//         // If an error occurs during request processing, log the error message and send a 500 response with an error message
-//         console.log(error.message);
-//         res.status(500).send({ message: error.message });
-//     }
-// };
+        // Send a 201 response with the newly created user object
+        return res.status(201).send(user);
+    } catch (error) {
+        // If an error occurs during request processing, log the error message and send a 500 response with an error message
+        console.log(error.message);
+        res.status(500).send({ message: error.message });
+    }
+};
 
 
-// // Access all users in the database
-// exports.SeeAllUser = async (req, res) => {
-//     try {
-//         const users = await User.find({});
-//         // Build response object with data
-//         const responseData = {
-//             count: users.length,
-//             data: users,
-//         };
-//         // Send response with status 200 and built object
-//         return res.status(200).json(responseData);
-//     } catch (error) {
-//         // If there is an error accessing the data, send a message to the system.
-//         console.log(error.message);
-//         res.status(500).send({ message: error.message });
-//     }
-// };
+// Access all users in the database
+exports.SeeAllUser = async (req, res) => {
+    try {
+        const users = await User.find({});
+        // Build response object with data
+        const responseData = {
+            count: users.length,
+            data: users,
+        };
+        // Send response with status 200 and built object
+        return res.status(200).json(responseData);
+    } catch (error) {
+        // If there is an error accessing the data, send a message to the system.
+        console.log(error.message);
+        res.status(500).send({ message: error.message });
+    }
+};
 
-// exports.FindUserbyid = async (req, res) => {
-//     try {
-//         const id = req.params.id;
-//         const users = await User.findById(id);
-//         if (!users) {
-//             return res.status(404).json({ message: "User not found" });
-//         }
-//         return res.status(200).json(users);
-//     } catch (error) {
-//         console.log(error.message);
-//         res.status(500).send({ message: error.message });
-//     }
-// };
+exports.FindUserbyid = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const users = await User.findById(id);
+        if (!users) {
+            return res.status(404).json({ message: "User not found" });
+        }
+        return res.status(200).json(users);
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).send({ message: error.message });
+    }
+};
 
-// exports.UpdateUserInformation = async (req, res) => {
-//     try {
-//         if (
-//             !req.body.UserId ||
-//             !req.body.UserName ||
-//             !req.body.UserPassword ||
-//             !req.body.image ||
-//             !req.body.Email
-//         ) {
-//             return res.status(400).send({
-//                 message: "Please provide all required information",
-//             });
-//         }
-//         const { id } = req.params;
-//         const results = await User.findByIdAndUpdate(id, req.body);
-//         if (!results) {
-//             return res.status(404).json({ message: "User not found" });
-//         }
-//         return res.status(200).json(results);
-//     } catch (error) {
-//         console.log(error.message);
-//         res.status(500).send({ message: error.message });
-//     }
-// };
+exports.UpdateUserInformation = async (req, res) => {
+    try {
+        if (
+            !req.body.UserPassword ||
+            !req.body.UserMail
+        ) {
+            return res.status(400).send({
+                message: "Please provide all required information",
+            });
+        }
+        const { id } = req.params;
+        const results = await User.findByIdAndUpdate(id, req.body);
+        if (!results) {
+            return res.status(404).json({ message: "User not found" });
+        }
+        return res.status(200).json(results);
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).send({ message: error.message });
+    }
+};
 
-// exports.DeleteUserbyId = async (req, res) => {
-//     try {
-//         const { id } = req.params;
-//         const results = await User.findByIdAndDelete(id, req.body);
-//         if (!results) {
-//             return res.status(404).json({ message: "User not found" });
-//         }
-//         return res.status(200).json({ message: "Delete Successfully" });
-//     } catch (error) {
-//         console.log(error.message);
-//         res.status(500).send({ message: error.message });
-//     }
-// };
+exports.DeleteUserbyId = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const results = await User.findByIdAndDelete(id, req.body);
+        if (!results) {
+            return res.status(404).json({ message: "User not found" });
+        }
+        return res.status(200).json({ message: "Delete Successfully" });
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).send({ message: error.message });
+    }
+};
 
 
 //Hệ thống API, CRUD của bài Post

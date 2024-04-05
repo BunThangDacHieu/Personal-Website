@@ -3,11 +3,11 @@ const router = express.Router();
 const UserController = require("../controller/controller");
 
 
-// router.post("/users", UserController.CreateNewUser);
-// router.get("/users", UserController.SeeAllUser);
-// router.get("/users/:id", UserController.FindUserbyid);
-// router.put("/users/:id", UserController.UpdateUserInformation);
-// router.delete("/users/:id", UserController.DeleteUserbyId);
+router.post("/users", UserController.CreateNewUser);
+router.get("/users", UserController.SeeAllUser);
+router.get("/users/:id", UserController.FindUserbyid);
+router.put("/users/:id", UserController.UpdateUserInformation);
+router.delete("/users/:id", UserController.DeleteUserbyId);
 
 router.post("/post", UserController.CreateNewPost);
 router.get("/post", UserController.SeeAllPost);
