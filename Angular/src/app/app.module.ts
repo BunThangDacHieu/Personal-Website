@@ -25,6 +25,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AllPostComponent } from './admin/post/all-post/all-post.component';
 import { NewsPostComponent } from './admin/post/news-post/news-post.component';
+import { SignupComponent } from './pages/signup/signup.component';
 import { LoginComponent } from './pages/login/login.component';
 
 
@@ -48,6 +49,7 @@ import { LoginComponent } from './pages/login/login.component';
     CategoriesComponent,
     AllPostComponent,
     NewsPostComponent,
+    SignupComponent,
     LoginComponent
   ],
   imports: [

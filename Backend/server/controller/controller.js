@@ -136,14 +136,18 @@ exports.CreateNewUser = async (req, res) => {
             // If one or more required fields are missing, send a 400 response with an error message
             return res.status(400).send({ message: "Please provide UserPassword and UserMail" });
         }
-
-        // Encrypt the password before saving (you can add this if needed)
-
         // Create a new user object with only UserPassword and userMail
         const newUser = new User({
             UserPassword,
             UserMail
         });
+        // const existingUser = await collection.findOne({ UserMail: newUser.UserMail });
+        // if (existingUser) {
+        //     return res.status(409).send('User already exits, please try again');
+        // }
+        if (newUser) {
+            return res.status(409).send('')
+        }
 
         // Save the new user object to the database
         const user = await newUser.save();

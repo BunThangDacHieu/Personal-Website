@@ -4,7 +4,8 @@
             <div class="card p-5 shadow bg-secondary-theme">
                 <div class="card-body justify-content-center">
                     <div class="text-center">
-                        <h3 class="text-primary">Login</h3>
+                        <h3 class="text-primary">Signup</h3>
+                        <p class="text-muted">Please signup to your account to post a new blog post</p>
                     </div>
                     <form [formGroup]="formLogin" (ngSubmit)="onSubmit()">
                         <div class="form-group" [ngClass]="{
@@ -45,11 +46,10 @@
 
                         </div>
                         <button type="submit" class="btn btn-primary btn-block justify-content-center"
-                            [disabled]='!formLogin || formLogin.get("UserPassword")?.invalid || !(formLogin.get("UserPassword")?.dirty || formLogin.get("UserPassword")?.touched)'>Log
-                            in</button>
+                            [disabled]='!formLogin || formLogin.get("UserPassword")?.invalid || !(formLogin.get("UserPassword")?.dirty || formLogin.get("UserPassword")?.touched)'>Signup</button>
                         <div class="text-center signup-button">
-                            <h5 class="mb-4">Don't have an Account?<p class="text-primary login-button"
-                                    routerLink="/signup">Signup</p>
+                            <h5 class="mb-4">Have an Account?<p class="text-primary login-button" routerLink="/login">
+                                    Login</p>
                             </h5>
                         </div>
                     </form>
