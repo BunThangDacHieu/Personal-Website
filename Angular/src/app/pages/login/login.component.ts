@@ -9,7 +9,7 @@ import { AuthService } from '../../helper/auth.service';
   styleUrls: ['./login.component.css'] 
 })
 export class LoginComponent implements OnInit {
-  formLogin?: FormGroup; 
+  formLogin!: FormGroup; 
 
   constructor(
     private formBuilder: FormBuilder, 

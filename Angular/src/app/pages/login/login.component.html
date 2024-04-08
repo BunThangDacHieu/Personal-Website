@@ -15,36 +15,38 @@
                             <input type="email" class="form-control" name="UserMail" formControlName="UserMail"
                                 id="UserMail" placeholder="Email Address">
                             <div
-                                *ngIf="formLogin &&formLogin.get('UserMail')?.invalid && (formLogin.get('UserMail')?.dirty || formLogin.get('UserMail')?.touched)">
-                                <div *ngIf="formLogin.get('UserMail').errors?.['required']"
+                                *ngIf="formLogin && formLogin.get('UserMail')?.invalid && (formLogin.get('UserMail')?.dirty || formLogin.get('UserMail')?.touched)">
+                                <div *ngIf="formLogin.get('UserMail')?.errors?.['required']"
                                     class="form-control-feedback">
-                                    Email cannot be empty!</div>
+                                    Email cannot be empty!
+                                </div>
                                 <div *ngIf="formLogin.get('UserMail')?.errors?.['UserMail']"
                                     class="form-control-feedback">
-                                    Please
-                                    enter a valid email address!</div>
+                                    Please enter a valid email address!
+                                </div>
                             </div>
                         </div>
 
 
                         <div class="form-group" [ngClass]="{
-                            'has-danger': formLogin.get('UserPassword').touched && formLogin.get('UserPassword').invalid,
-                            'has-success': formLogin.get('UserPassword').valid
+                            'has-danger': formLogin.get('UserPassword')?.touched && formLogin.get('UserPassword')?.invalid,
+                            'has-success': formLogin.get('UserPassword')?.valid
                         }">
                             <input type="password" class="form-control" placeholder="Password"
                                 formControlName="UserPassword" name="UserPassword" id="UserPassword"
-                                [ngClass]="{'is-invalid': UserPassword.touched && UserPassword.invalid}">
+                                [ngClass]="{'is-invalid': formLogin.get('UserPassword')?.touched && formLogin.get('UserPassword')?.invalid}">
+
                             <div
-                                *ngIf="formLogin.get('UserPassword').invalid && (formLogin.get('UserPassword').dirty || formLogin.get('UserPassword').touched)">
-                                <div *ngIf="fromLogin && formLogin.get('UserPassword').errors?.required"
+                                *ngIf="formLogin.get('UserPassword')?.invalid && (formLogin.get('UserPassword')?.dirty || formLogin.get('UserPassword')?.touched)">
+                                <div *ngIf="formLogin && formLogin.get('UserPassword')?.errors?.required"
                                     class="form-control-feedback">
                                     Password
                                     cannot be empty!</div>
                             </div>
 
                         </div>
-                        <button type="submit" class="btn btn-secondary btn-block col-md-6"
-                            [disabled]='!formLogin || formLogin.invalid'>Login</button>
+                        <button type="submit" class="btn btn-primary btn-block"
+                            [disabled]='!formLogin || formLogin.get("UserPassword")?.invalid || !(formLogin.get("UserPassword")?.dirty || formLogin.get("UserPassword")?.touched)'>Login</button>
                     </form>
                 </div>
             </div>
