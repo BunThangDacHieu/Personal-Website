@@ -19,6 +19,9 @@ const PostSchema = mongoose.Schema(
             type: Buffer,
             required: false
         },
+        "Permalink": {
+            type: String,
+        },
         "userId": {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User',

@@ -7,20 +7,20 @@
                         <h3 class="text-primary">Signup</h3>
                         <p class="text-muted">Please signup to your account to post a new blog post</p>
                     </div>
-                    <form [formGroup]="formLogin" (ngSubmit)="onSubmit()">
+                    <form [formGroup]="FormSignup" (ngSubmit)="onSubmit()">
                         <div class="form-group" [ngClass]="{
-                            'has-danger': formLogin.get('UserMail')?.touched && formLogin.get('UserMail')?.invalid,
-                            'has-success': formLogin.get('UserMail')?.valid
+                            'has-danger': FormSignup.get('UserMail')?.touched && FormSignup.get('UserMail')?.invalid,
+                            'has-success': FormSignup.get('UserMail')?.valid
                         }">
                             <input type="email" class="form-control" name="UserMail" formControlName="UserMail"
                                 id="UserMail" placeholder="Email Address">
                             <div
-                                *ngIf="formLogin && formLogin.get('UserMail')?.invalid && (formLogin.get('UserMail')?.dirty || formLogin.get('UserMail')?.touched)">
-                                <div *ngIf="formLogin.get('UserMail')?.errors?.['required']"
+                                *ngIf="FormSignup && FormSignup.get('UserMail')?.invalid && (FormSignup.get('UserMail')?.dirty || FormSignup.get('UserMail')?.touched)">
+                                <div *ngIf="FormSignup.get('UserMail')?.errors?.['required']"
                                     class="form-control-feedback">
                                     Email cannot be empty!
                                 </div>
-                                <div *ngIf="formLogin.get('UserMail')?.errors?.['UserMail']"
+                                <div *ngIf="FormSignup.get('UserMail')?.errors?.['UserMail']"
                                     class="form-control-feedback">
                                     Please enter a valid email address!
                                 </div>
@@ -29,16 +29,16 @@
 
 
                         <div class="form-group" [ngClass]="{
-                            'has-danger': formLogin.get('UserPassword')?.touched && formLogin.get('UserPassword')?.invalid,
-                            'has-success': formLogin.get('UserPassword')?.valid
+                            'has-danger': FormSignup.get('UserPassword')?.touched && FormSignup.get('UserPassword')?.invalid,
+                            'has-success': FormSignup.get('UserPassword')?.valid
                         }">
                             <input type="password" class="form-control" placeholder="Password"
                                 formControlName="UserPassword" name="UserPassword" id="UserPassword"
-                                [ngClass]="{'is-invalid': formLogin.get('UserPassword')?.touched && formLogin.get('UserPassword')?.invalid}">
+                                [ngClass]="{'is-invalid': FormSignup.get('UserPassword')?.touched && FormSignup.get('UserPassword')?.invalid}">
 
                             <div
-                                *ngIf="formLogin.get('UserPassword')?.invalid && (formLogin.get('UserPassword')?.dirty || formLogin.get('UserPassword')?.touched)">
-                                <div *ngIf="formLogin && formLogin.get('UserPassword')?.errors?.required"
+                                *ngIf="FormSignup.get('UserPassword')?.invalid && (FormSignup.get('UserPassword')?.dirty || FormSignup.get('UserPassword')?.touched)">
+                                <div *ngIf="FormSignup && FormSignup.get('UserPassword')?.errors?.required"
                                     class="form-control-feedback">
                                     Password
                                     cannot be empty!</div>
@@ -46,7 +46,7 @@
 
                         </div>
                         <button type="submit" class="btn btn-primary btn-block justify-content-center"
-                            [disabled]='!formLogin || formLogin.get("UserPassword")?.invalid || !(formLogin.get("UserPassword")?.dirty || formLogin.get("UserPassword")?.touched)'>Signup</button>
+                            [disabled]='!FormSignup || FormSignup.get("UserPassword")?.invalid || !(FormSignup.get("UserPassword")?.dirty || FormSignup.get("UserPassword")?.touched)'>Signup</button>
                         <div class="text-center signup-button">
                             <h5 class="mb-4">Have an Account?<p class="text-primary login-button" routerLink="/login">
                                     Login</p>

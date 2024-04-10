@@ -5,6 +5,7 @@
 @import 'primeng/resources/primeng.min.css';
 @import 'primeicons/primeicons.css';
 @import 'ngx-toastr/toastr';
+@import '../node_modules/font-awesome/css/font-awesome.css';
 
 :root {
     --primary-color: #026467;

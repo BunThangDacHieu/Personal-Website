@@ -4,25 +4,43 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const User = require('../models/User')
 
+exports.getUserAdminStatus = async (userMail) => {
+    try {
+        // Tìm kiếm người dùng trong cơ sở dữ liệu với email tương ứng
+        const user = await User.findOne({ UserMail: userMail, isAdmin: true });
+        // Kiểm tra xem người dùng có tồn tại và có quyền Admin hay không
+        if (user && user.IsAdmin) {
+            return true; // Người dùng là Admin
+        } else {
+            return false; // Người dùng không phải là Admin hoặc không tồn tại
+        }
+    } catch (error) {
+        console.error("Error retrieving user admin status:", error);
+        return false; // Trả về false nếu có lỗi xảy ra
+    }
+};
+
+
 exports.LoginUser = async (req, res) => {
     try {
-        const { userMail, UserPassword } = req.body;
+        const { UserMail, UserPassword } = req.body;
+
         // Tìm kiếm người dùng trong cơ sở dữ liệu bằng email
-        const user = await User.findOne({ userMail });
+        const user = await User.findOne({ UserMail });
 
         // Kiểm tra xem người dùng có tồn tại không
         if (!user) {
             return res.status(401).json({ message: 'Email or password is incorrect' });
         }
 
-        // So sánh mật khẩu
-        const isPasswordValid = await bcrypt.compare(UserPassword, user.UserPassword);
+        // Xác thực mật khẩu
+        const isPasswordValid = await user.validatePassword(UserPassword);
         if (!isPasswordValid) {
             return res.status(401).json({ message: 'Email or password is incorrect' });
         }
 
         // Tạo JWT
-        const token = jwt.sign({ userId: user._id }, 'your-secret-key', { expiresIn: '1h' });
+        const token = user.generateJWT();
 
         // Gửi JWT về client
         res.status(200).json({ token });
@@ -115,10 +133,10 @@ exports.Update_Category_Information = async (req, res) => {
 
 
 //Xóa Tên Thể Loại.
-exports.Delete_Category_by_Name = async (req, res) => {
+exports.Delete_Category_by_Id = async (req, res) => {
     try {
-        const { Name } = req.params;
-        const results = await Category.findOneAndDelete({ Name });
+        const { Category_id } = req.params;
+        const results = await Category.findOneAndDelete({ Category_id });
         if (!results) {
             return res.status(404).json({ message: "User not found" });
         }
@@ -130,36 +148,37 @@ exports.Delete_Category_by_Name = async (req, res) => {
 };
 exports.CreateNewUser = async (req, res) => {
     try {
-        // Check if all required fields are present in the request body
-        const { UserPassword, UserMail } = req.body;
-        if (!UserPassword || !UserMail) {
-            // If one or more required fields are missing, send a 400 response with an error message
-            return res.status(400).send({ message: "Please provide UserPassword and UserMail" });
-        }
-        // Create a new user object with only UserPassword and userMail
-        const newUser = new User({
-            UserPassword,
-            UserMail
-        });
-        // const existingUser = await collection.findOne({ UserMail: newUser.UserMail });
-        // if (existingUser) {
-        //     return res.status(409).send('User already exits, please try again');
-        // }
-        if (newUser) {
-            return res.status(409).send('')
+        // Kiểm tra xem tài khoản đã tồn tại trong cơ sở dữ liệu hay chưa
+        const existingUser = await User.findOne({ UserMail: req.body.UserMail });
+        if (existingUser) {
+            return res.status(409).send({ message: 'This Account is Already Exists' });
         }
 
-        // Save the new user object to the database
+        // Tạo mới người dùng
+        const newUser = new User({
+            UserMail: req.body.UserMail,
+            // UserName: req.body.UserName,
+            UserPassword: req.body.UserPassword
+        });
+
+        // Đặt mật khẩu cho người dùng
+        await newUser.setPassword(req.body.UserPassword);
+
+        // Lưu người dùng mới vào cơ sở dữ liệu
         const user = await newUser.save();
 
-        // Send a 201 response with the newly created user object
-        return res.status(201).send(user);
+        // Tạo JWT cho người dùng
+        const token = newUser.generateJWT();
+
+        // Gửi phản hồi 201 với thông tin người dùng vừa được tạo mới và JWT
+        return res.status(201).send({ user, token });
     } catch (error) {
-        // If an error occurs during request processing, log the error message and send a 500 response with an error message
-        console.log(error.message);
-        res.status(500).send({ message: error.message });
+        // Ghi log lỗi và gửi phản hồi 500 nếu có lỗi xảy ra
+        console.error(error.message);
+        res.status(500).send({ message: 'An error occurred during signup.' });
     }
 };
+
 
 
 // Access all users in the database
@@ -180,10 +199,10 @@ exports.SeeAllUser = async (req, res) => {
     }
 };
 
-exports.FindUserbyid = async (req, res) => {
+exports.FindUserbyUserMail = async (req, res) => {
     try {
-        const id = req.params.id;
-        const users = await User.findById(id);
+        const UserMail = req.params.UserMail;
+        const users = await User.FindUserbyUserMail(UserMail);
         if (!users) {
             return res.status(404).json({ message: "User not found" });
         }
@@ -204,8 +223,8 @@ exports.UpdateUserInformation = async (req, res) => {
                 message: "Please provide all required information",
             });
         }
-        const { id } = req.params;
-        const results = await User.findByIdAndUpdate(id, req.body);
+        const { UserMail } = req.params;
+        const results = await User.findByUserMailAndUpdate(UserMail, req.body);
         if (!results) {
             return res.status(404).json({ message: "User not found" });
         }
@@ -216,10 +235,10 @@ exports.UpdateUserInformation = async (req, res) => {
     }
 };
 
-exports.DeleteUserbyId = async (req, res) => {
+exports.DeleteUserbyUserMail = async (req, res) => {
     try {
-        const { id } = req.params;
-        const results = await User.findByIdAndDelete(id, req.body);
+        const { UserMail } = req.params;
+        const results = await User.findByUserMailAndDelete(UserMail, req.body);
         if (!results) {
             return res.status(404).json({ message: "User not found" });
         }
@@ -277,15 +296,15 @@ exports.FindPostbyTitle = async (req, res) => {
 
 exports.DeletePost = async (req, res) => {
     try {
-        const { Title } = req.params;
-        const results = await Post.findOneAndDelete(Title, req.body);
-        if (!results) {
-            return res.status(404).json({ message: "User not found" });
+        const Title = req.params.Title;
+        const deletedPost = await Post.findByIdAndDelete(Title);
+        if (!deletedPost) {
+            return res.status(404).json({ message: "Post not found" });
         }
-        return res.status(200).json({ message: "Delete Successfully" });
+        return res.status(200).json({ message: "Post deleted successfully" });
     } catch (error) {
-        console.log(error.message);
-        res.status(500).send({ message: error.message });
+        console.error(error.message);
+        res.status(500).json({ message: "Server error" });
     }
 };
 exports.UpdatePostInformation = async (req, res) => {

@@ -7,25 +7,24 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  formLogin!: FormGroup; 
-
+  formLogin!: FormGroup;
 
   constructor(
-    private formBuilder: FormBuilder, 
+    private formBuilder: FormBuilder,
     private router: Router,
     private authService: AuthService,
     private toastr: ToastrService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.formLogin = this.formBuilder.group({
       UserMail: ['', [Validators.required, Validators.email]],
       UserPassword: ['', Validators.required]
     });
-  } 
+  }
 
   get UserMail() {
     return this.formLogin ? this.formLogin.get('UserMail') : null;
@@ -38,20 +37,28 @@ export class LoginComponent {
   onSubmit() {
     if (this.formLogin && this.formLogin.valid) {
       const { UserMail, UserPassword } = this.formLogin.value;
+
+      // Assuming you have an API endpoint for user authentication
       this.authService.login(UserMail, UserPassword).subscribe(
-        () => {
-          // Đăng nhập thành công, điều hướng đến trang dashboard
-          this.router.navigateByUrl('/dashboard');
+        (response) => {
+          // Check if the response indicates successful authentication
+          if (response.success) {
+            // Redirect to the dashboard
+            this.router.navigateByUrl('/dashboard');
+          } else {
+            // Handle authentication failure (e.g., invalid credentials)
+            this.toastr.error('Invalid username or password.');
+          }
         },
         (error) => {
-          // Xử lý lỗi đăng nhập
+          // Handle other errors (e.g., network issues)
           console.error('Login failed:', error);
-          this.toastr.error('This Account is Already Exits');
-          // Hiển thị thông báo lỗi cho người dùng hoặc thực hiện các hành động khác
+          this.toastr.error('An error occurred during login.');
         }
       );
     } else {
-      // Form không hợp lệ, xử lý theo cách phù hợp
+      // Handle form validation errors
+      this.toastr.warning('Please fill in valid email and password.');
     }
   }
 }

@@ -12,10 +12,11 @@ import { AllPostComponent } from './admin/post/all-post/all-post.component';
 import { NewsPostComponent } from './admin/post/news-post/news-post.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { LoginComponent } from './pages/login/login.component';
+import { AdminGuard } from './helper/auth.guard';
 
 const routes: Routes = [
-  {path: 'signup', component: SignupComponent},
-  {path: 'login', component: LoginComponent},
+  {path: 'register', component: SignupComponent},
+  {path: 'login', component: LoginComponent, canActivate:[AdminGuard]},
 
   //User
   {path: '', component: HomeComponent,},
@@ -24,12 +25,20 @@ const routes: Routes = [
   {path: 'about', component: AboutUsComponent},
   {path: 'contact', component: ContactUsComponent},
   {path: 'term', component: TermAndConditionComponent},
-  //Admin
+  //Admin 
   {path: 'dashboard', component: DashboardComponent},
   {path: 'dashboard/categories', component: CategoriesComponent },
   {path: 'dashboard/post', component: AllPostComponent},
   {path: 'dashboard/post/new', component: NewsPostComponent},
+
+  // { path: 'dashboard', component: DashboardComponent, canActivate: [AdminGuard], children: [
+  //   { path: '', redirectTo: 'categories', pathMatch: 'full' }, // Đường dẫn mặc định cho dashboard
+  //   { path: 'dashboard/categories', component: CategoriesComponent },
+  //   { path: 'dashboard/post', component: AllPostComponent },
+  //   { path: 'dashboard/post/new', component: NewsPostComponent }
+  // ]
 ];
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

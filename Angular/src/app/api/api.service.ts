@@ -27,8 +27,8 @@ export class ApiService {
     return this.http.put<Category[]>(`${this.categoryUrl}/${category.Name}`, category);
   }
 
-  Delete_Category_by_Name(Name: string): Observable<Category[]> {
-    return this.http.delete<Category[]>(`${this.categoryUrl}/${Name}`);
+  Delete_Category_by_Id(Category_id: string): Observable<Category[]> {
+    return this.http.delete<Category[]>(`${this.categoryUrl}/${Category_id}`);
   }
 
   // Các phương thức liên quan đến Post

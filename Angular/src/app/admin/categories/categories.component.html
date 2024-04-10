@@ -41,9 +41,13 @@
                         <tbody>
                             <tr *ngFor="let category of categories; let i = index">
                                 <td>{{i}}</td>
-                                <td>{{category.Number}}</td>
+                                <td>{{category.Name}}</td>
                                 <td>
-                                    <button class="btn btn-warning btn-sm" (click)="OnEdit(categories)">Edit</button>
+                                    <button class="btn btn-warning btn-sm" (click)="OnEdit(category)">Edit</button>
+                                </td>
+                                <td>
+                                    <button class="btn btn-warning btn-sm" (click)="OnDelete(category)">
+                                        Delete</button>
                                 </td>
                             </tr>
                         </tbody>

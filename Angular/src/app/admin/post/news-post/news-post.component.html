@@ -6,36 +6,38 @@
         </div>
     </div>
 
-    <form>
+    <form (ngSubmit)="onSubmit()" [formGroup]="formPost">
         <div class="row">
             <div class="col-md-7 mb-5">
                 <div class="card shadow-effect">
-                    <div class="card-body">
+                    <div class="card-body form-group">
                         <label>Title</label>
-                        <input type="text" class="form-control" (keydown.enter)="onTitleChange($event)">
+                        <input type="text" class="form-control" (keydown.enter)="onTitleChange($event)"
+                            formControlName='Title'>
                     </div>
-                    <div class=" card-body">
+                    <div class=" card-body form-group">
                         <label>PermalLink</label>
-                        <input type="text" class="form-control" [(ngModel)]='permalink' name="permalink" disabled>
+                        <input type="text" class="form-control" formControlName='permalink' name="permalink">
                     </div>
-                    <div class="card-body">
+                    <div class="card-body form-group">
                         <label>Excerpt</label>
-                        <textarea cols="30" rows="10" class="form-control"></textarea>
+                        <textarea cols="30" rows="10" class="form-control" formControlName='Excerpt'></textarea>
                     </div>
                 </div>
             </div>
             <div class="col-md-5 card shadow-effect pb-5">
                 <div class="form-group ">
                     <label for="">Select a post category</label>
-                    <select class="form-control">
+                    <select class="form-control" formControlName='category'>
                         <option value="" disabled>Please select a category</option>
-                        <option *ngFor="let category of categories">{{category.Name }}</option>
+                        <option *ngFor="let category of categories">{{category.Name}}</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="">Post Image</label>
                     <img [src]="imgSrc" class="form-control img-fluid  img-preview ">
-                    <input type="file" class="form-control" accept="image/*" (change)="showPreview($event)">
+                    <input type="file" class="form-control" formControlName="image" accept="image/*"
+                        (change)="showPreview($event)">
                 </div>
             </div>
         </div>
@@ -45,7 +47,8 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label for="">Content</label>
-                            <textarea class="form-control" id="" cols="30" rows="10"></textarea>
+                            <angular-editor [placeholder]="'Enter text here...'"
+                                formControlName='content'></angular-editor>
 
                         </div>
                     </div>
