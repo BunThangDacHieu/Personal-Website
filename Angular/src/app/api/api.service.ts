@@ -23,8 +23,12 @@ export class ApiService {
     return this.http.post<any>(this.categoryUrl, category);
   }
 
-  Update_Category_Information(category: Category): Observable<Category[]> {
-    return this.http.put<Category[]>(`${this.categoryUrl}/${category.Name}`, category);
+  Update_Category_Information(category: Category): Observable<Category> {
+    const updatedCategory = {
+      name: category.Name, 
+    };
+  
+    return this.http.put<Category>(`${this.categoryUrl}/${category.Category_id}`, updatedCategory);
   }
 
   Delete_Category_by_Id(Category_id: string): Observable<Category[]> {

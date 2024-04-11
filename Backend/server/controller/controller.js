@@ -105,31 +105,23 @@ exports.See_All_Category = async (req, res) => {
 
 exports.Update_Category_Information = async (req, res) => {
     try {
-        if (!req.body.Name) {
-            return res.status(400).send({
-                message: "Please provide a category name to update"
-            });
-        }
-
-        const { Name } = req.params;
-
-        // Tìm và cập nhật danh mục dựa trên tên
+        const { Category_id } = req.params;
+        const updatedCategoryData = req.body;
         const updatedCategory = await Category.findOneAndUpdate(
-            { Name: Name }, // Điều kiện tìm kiếm
-            req.body, // Dữ liệu cập nhật
-            { new: true } // Trả về tài nguyên đã được cập nhật
+            Category_id, updatedCategoryData, { new: true }
         );
 
         if (!updatedCategory) {
-            return res.status(404).json({ message: "Category not found or updated unsuccessfully" });
+            return res.status(404).json({ message: "Category not found or not updated successfully" });
         }
 
         return res.status(200).json(updatedCategory);
     } catch (error) {
-        console.log(error.message);
-        res.status(500).send({ message: "Internal Server Error" });
+        console.error(error.message);
+        return res.status(500).send({ message: "Internal Server Error" });
     }
 };
+
 
 
 //Xóa Tên Thể Loại.

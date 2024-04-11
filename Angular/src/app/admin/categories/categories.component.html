@@ -12,14 +12,15 @@
                     <!-- Chỗ này check nếu submit và có lỗi required thì hiển thị cảnh báo -->
 
                     <div role="alert" aria-live="assertive" class="alert alert-danger" *ngIf="
-            isSubmit && formCategory?.controls['category']?.errors?.required
-          ">
+                        isSubmit && formCategory?.controls['category']?.errors?.required
+                    ">
                         Category field is required
                     </div>
 
                     <div class="col-md-2">
                         <button class="btn btn-info btn-sm col-md-7">Add Category</button>
                         <button class="btn btn-warning btn-sm" routerLink="/dashboard">Back to Dashboard</button>
+
                     </div>
                 </form>
             </div>
@@ -40,11 +41,8 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let category of categories; let i = index">
-                                <td>{{i}}</td>
+                                <td>{{i + 1}}</td>
                                 <td>{{category.Name}}</td>
-                                <td>
-                                    <button class="btn btn-warning btn-sm" (click)="OnEdit(category)">Edit</button>
-                                </td>
                                 <td>
                                     <button class="btn btn-warning btn-sm" (click)="OnDelete(category)">
                                         Delete</button>

@@ -12,16 +12,44 @@
                 <div class="card shadow-effect">
                     <div class="card-body form-group">
                         <label>Title</label>
-                        <input type="text" class="form-control" (keydown.enter)="onTitleChange($event)"
-                            formControlName='Title'>
+                        <input type="text" class="form-control" (input)="onTitleChange($event)" formControlName='title'>
+                        <div *ngIf="formPost.get('title')?.errors?.required && formPost.get('title')?.touched"
+                            class="alert alert-danger">
+                            Title is required
+                        </div>
+                        <div *ngIf="formPost.get('title')?.errors?.minlength && formPost.get('title')?.touched"
+                            class="alert alert-danger">
+                            Title must be at least 10 characters long
+                        </div>
+
                     </div>
                     <div class=" card-body form-group">
-                        <label>PermalLink</label>
-                        <input type="text" class="form-control" formControlName='permalink' name="permalink">
+                        <label for="permalink">PermalLink</label>
+                        <input type="text" class="form-control" formControlName='permalink' name="permalink"
+                            [value]="permalink">
+                        <div *ngIf="formPost.get('permalink')?.errors?.required && formPost.get('permalink')?.touched"
+                            class="alert alert-danger">
+                            PermalLink is required
+                        </div>
+                        <div *ngIf="formPost.get('permalink')?.errors?.minlength && formPost.get('permalink')?.touched"
+                            class="alert alert-danger">
+                            Permalink must be at least 10 characters long
+                        </div>
+
                     </div>
                     <div class="card-body form-group">
                         <label>Excerpt</label>
-                        <textarea cols="30" rows="10" class="form-control" formControlName='Excerpt'></textarea>
+                        <textarea cols="30" rows="10" class="form-control" formControlName='excerpt' name="excerpt">
+                        </textarea>
+                        <div *ngIf="formPost.get('excerpt')?.errors?.required && formPost.get('excerpt')?.touched"
+                            class="alert alert-danger">
+                            Excerpt is required
+                        </div>
+                        <div *ngIf="formPost.get('excerpt')?.errors?.minlength && formPost.get('excerpt')?.touched"
+                            class="alert alert-danger">
+                            Excerpt must be at least 100 characters long
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -36,7 +64,7 @@
                 <div class="form-group">
                     <label for="">Post Image</label>
                     <img [src]="imgSrc" class="form-control img-fluid  img-preview ">
-                    <input type="file" class="form-control" formControlName="image" accept="image/*"
+                    <input type="file" name="image" class="form-control" formControlName="image" accept="image/*"
                         (change)="showPreview($event)">
                 </div>
             </div>
@@ -47,8 +75,8 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label for="">Content</label>
-                            <angular-editor [placeholder]="'Enter text here...'"
-                                formControlName='content'></angular-editor>
+                            <angular-editor [placeholder]="'Enter text here...'" formControlName="content"
+                                name="content"></angular-editor>
 
                         </div>
                     </div>

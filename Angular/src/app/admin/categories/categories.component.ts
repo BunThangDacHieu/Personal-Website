@@ -10,6 +10,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./categories.component.css']
 })
 export class CategoriesComponent implements OnInit{
+  selectedCategory: string | null = null;
   categories: any = [];
   constructor(private api:ApiService,
               private toastr: ToastrService){}
@@ -56,24 +57,7 @@ export class CategoriesComponent implements OnInit{
       }
     );
   }
-  OnEdit(category: Category){
-    const updatedCategory = { ...category }; // Tạo một bản sao của đối tượng danh mục
-    // Thực hiện các thay đổi cần thiết trên đối tượng danh mục, ví dụ như tên danh mục mới
-    updatedCategory.Name = "New Category Name"; // Thay đổi tên danh mục thành tên mới
-    
-    this.api.Update_Category_Information(updatedCategory).subscribe(
-      response => {
-        console.log('Category Updated Successfully', response);
-        this.toastr.success('Category Updated Successfully');
-        this.SeeAllCategory(); // Load lại danh sách sau khi cập nhật
-      },
-      error => {
-        console.error('Error updating category:', error);
-        this.toastr.error('Something went wrong, please try again');
-      }
-    );
-  }
-  
+
   
 
   OnDelete(categories: Category) { 

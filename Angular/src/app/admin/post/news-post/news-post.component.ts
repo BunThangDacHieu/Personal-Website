@@ -21,18 +21,22 @@ export class NewsPostComponent implements OnInit {
 
   constructor(private api: ApiService, 
               private toastr: ToastrService,
-              private formBuilder: FormBuilder) {}
+              private formBuilder: FormBuilder) 
+            {}
 
   ngOnInit(): void {
     this.SeeAllCategory();
     this.formPost = this.formBuilder.group({
-      title: ['', Validators.required], // Validators để kiểm tra tính hợp lệ
-      permalink: [{value: '', disabled: true}], // Giá trị mặc định và disabled
-      excerpt: [''],
+      title: ['', [Validators.required, Validators.minLength(10)]], // Validators để kiểm tra tính hợp lệ
+      permalink: [{value: '', disabled: true}, Validators.required], // Giá trị mặc định và disabled
+      excerpt: ['', [Validators.minLength(100)]],
       category: ['', Validators.required], // Validators để yêu cầu lựa chọn
-      image: [false],
-      content: ['']
+      image: ['', Validators.required],
+      content: ['', Validators.required]
   });
+  }
+  get fc(){
+    return this.formPost.controls
   }
 
   onTitleChange($event: any) {
@@ -42,7 +46,6 @@ export class NewsPostComponent implements OnInit {
 
   generatePermalink() {
     this.permalink = this.title.replace(/\s/g, '-');
-    console.log(this.permalink);
   }
 
   showPreview($event: any) {
