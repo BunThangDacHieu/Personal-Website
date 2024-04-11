@@ -8,15 +8,13 @@ const PostSchema = mongoose.Schema(
         },
         "Title": {
             type: String,
-            required: true,
             match: [/^[a-zA-Z0-9]+$/, "is invalid"],
         },
         "Content": {
             type: String,
-            required: true
         },
         "image": {
-            type: Buffer,
+            type: String,
             required: false
         },
         "Permalink": {
@@ -25,7 +23,10 @@ const PostSchema = mongoose.Schema(
         "userId": {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User',
-            required: true
+        },
+        "Excerpt": {
+            type: String,
+
         }
     },
     {

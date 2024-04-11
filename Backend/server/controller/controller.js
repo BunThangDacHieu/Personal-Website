@@ -246,9 +246,11 @@ exports.DeleteUserbyUserMail = async (req, res) => {
 exports.CreateNewPost = async (req, res) => {
     try {
         const newPost = new Post({
-            Title: req.body.UserName,
-            Contenr: req.body.Content,
-            image: req.body.title,
+            title: req.body.Title,
+            content: req.body.Content,
+            image: req.body.image,
+            permalink: req.body.Permalink,
+            excerpt: req.body.Excerpt
         });
         const post = await newPost.save();
         return res.status(201).send(post);

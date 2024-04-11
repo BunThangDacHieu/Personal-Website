@@ -32,7 +32,7 @@ export class NewsPostComponent implements OnInit {
       excerpt: ['', [Validators.minLength(100)]],
       category: ['', Validators.required], // Validators để yêu cầu lựa chọn
       image: ['', Validators.required],
-      content: ['', Validators.required]
+      Content: ['', [Validators.required, Validators.minLength(100)]]
   });
   }
   get fc(){

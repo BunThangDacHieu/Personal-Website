@@ -56,16 +56,22 @@
             <div class="col-md-5 card shadow-effect pb-5">
                 <div class="form-group ">
                     <label for="">Select a post category</label>
-                    <select class="form-control" formControlName='category'>
+                    <select class="form-control" formControlName='category' name="category">
                         <option value="" disabled>Please select a category</option>
                         <option *ngFor="let category of categories">{{category.Name}}</option>
                     </select>
+                    <div *ngIf="formPost.get('category')?.errors?.required" class="alert alert-danger">
+                        Category is required
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="">Post Image</label>
                     <img [src]="imgSrc" class="form-control img-fluid  img-preview ">
                     <input type="file" name="image" class="form-control" formControlName="image" accept="image/*"
                         (change)="showPreview($event)">
+                    <div *ngIf="formPost.get('image')?.errors?.required" class="alert alert-danger">
+                        Image is required
+                    </div>
                 </div>
             </div>
         </div>
@@ -75,9 +81,11 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label for="">Content</label>
-                            <angular-editor [placeholder]="'Enter text here...'" formControlName="content"
+                            <angular-editor [placeholder]="'Enter text here...'" formControlName="Content"
                                 name="content"></angular-editor>
-
+                            <div *ngIf="formPost.get('Content')?.errors?.required" class="alert alert-danger">
+                                Content must be at least 100 characters long
+                            </div>
                         </div>
                     </div>
                 </div>

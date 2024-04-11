@@ -40,10 +40,6 @@ export class AuthService {
     );
   }
 
-  isLoggedIn(): boolean {
-    return !!localStorage.getItem('token');
-  }   
-
   isAdmin(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/users/isAdmin`).pipe(
       catchError(error => {
