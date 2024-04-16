@@ -58,7 +58,9 @@
                     <label for="">Select a post category</label>
                     <select class="form-control" formControlName='category' name="category">
                         <option value="" disabled>Please select a category</option>
-                        <option *ngFor="let category of categories">{{category.Name}}</option>
+                        <option *ngFor="let category of categories" value="{{category.Name}}">
+                            {{category.Name}}
+                        </option>
                     </select>
                     <div *ngIf="formPost.get('category')?.errors?.required" class="alert alert-danger">
                         Category is required
@@ -82,7 +84,7 @@
                         <div class="form-group">
                             <label for="">Content</label>
                             <angular-editor [placeholder]="'Enter text here...'" formControlName="Content"
-                                name="content"></angular-editor>
+                                name="Content"></angular-editor>
                             <div *ngIf="formPost.get('Content')?.errors?.required" class="alert alert-danger">
                                 Content must be at least 100 characters long
                             </div>

@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { Posts } from '../../../model/Post';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { PostServiceService } from '../../../helper/post-service.service';
 
 @Component({
   selector: 'app-news-post',
@@ -21,7 +22,8 @@ export class NewsPostComponent implements OnInit {
 
   constructor(private api: ApiService, 
               private toastr: ToastrService,
-              private formBuilder: FormBuilder) 
+              private formBuilder: FormBuilder,
+              private postService: PostServiceService) 
             {}
 
   ngOnInit(): void {
@@ -73,11 +75,12 @@ export class NewsPostComponent implements OnInit {
   onSubmit() {
     if (this.formPost.valid) {
       const newPost: Posts = this.formPost.value;
-
+      
       this.api.CreateNewPost(newPost).subscribe(
         () => {
           this.toastr.success('Post saved successfully');
           this.formPost.reset();
+          console.log(newPost);
         },
         (error) => {
           console.error('Error saving post:', error);
@@ -88,6 +91,8 @@ export class NewsPostComponent implements OnInit {
       this.toastr.error('Please fill out all required fields.');
     }
   }
+
+  
   
   editorConfig: AngularEditorConfig = {
     editable: true,

@@ -11,8 +11,7 @@ export class ApiService {
   private baseUrl: string = 'http://localhost:8080'; 
   private categoryUrl: string = `${this.baseUrl}/Category`;
   private postUrl: string = `${this.baseUrl}/post`;
-
-  constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) {}
 
   // Các phương thức liên quan đến Category
   See_All_Category(): Observable<any> {

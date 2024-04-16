@@ -2,6 +2,12 @@ const express = require("express");
 const router = express.Router();
 const UserController = require("../controller/controller");
 
+
+router.post("/upload", UserController.uploadImage);
+router.get("/files", UserController.getListFiles);
+router.get("/files/:name", UserController.download);
+
+
 router.get("/users/isAdmin", UserController.getUserAdminStatus);
 router.post("/users/register", UserController.CreateNewUser);
 router.post("/users/login", UserController.LoginUser);

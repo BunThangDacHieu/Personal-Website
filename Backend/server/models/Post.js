@@ -27,6 +27,15 @@ const PostSchema = mongoose.Schema(
         "Excerpt": {
             type: String,
 
+        },
+        "isFeatured": {
+            type: Boolean,
+        },
+        "views": {
+            type: Number
+        },
+        "status": {
+            type: String
         }
     },
     {

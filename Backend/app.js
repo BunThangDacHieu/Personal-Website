@@ -6,6 +6,8 @@ const morgan = require('morgan');
 const User = require('./server/models/User.js');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const multer = require('multer');
+const upload = multer({ dest: 'upload/' });
 
 
 const app = express();
@@ -31,9 +33,6 @@ app.use(
     })
 )
 
-//Static files
-// app.use(express.static('public'));
-
 //Templating engine
 app.use(expressLayouts);
 app.set('layout', './layouts/main');
@@ -42,6 +41,7 @@ app.use(bodyParser.json());
 
 
 //Routes
+
 app.use('/', require('./server/routes/UserRoutes'))
 
 // Handle 404

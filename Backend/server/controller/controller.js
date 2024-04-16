@@ -1,8 +1,127 @@
 const Category = require("../models/Category");
 const Post = require('../models/Post');
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
-const User = require('../models/User')
+const User = require('../models/User');
+const mongoose = require('mongoose');
+const GridFSBucket = require("mongodb").GridFSBucket;
+const multer = require('multer');
+const path = require('path');  // Import the 'path' module for filename generation
+
+
+
+
+/*-------------------------Improvement---------------------------*/
+const storage = multer.diskStorage({
+    destination: 'upload/',
+    filename: function (req, file, cb) {
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+        cb(null, file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname));
+    }
+});
+
+const upload = multer({
+    storage: storage,
+    fileFilter: function (req, file, cb) {
+        const allowedExtensions = ['image/jpeg', 'image/png'];
+        if (!allowedExtensions.includes(file.mimetype)) {
+            return cb(new multer.MulterError('File type not allowed'));
+        }
+        cb(null, true);
+    },
+    limits: { fileSize: 1024 * 1024 * 5 }  // Set a maximum file size limit (5MB in this example)
+});
+
+
+/*----------------------------UploadImage----------------------------------*/
+
+exports.uploadImage = async (req, res) => {
+    try {
+        // Handle file upload using Multer middleware
+        await upload.single('avatar')(req, res, (err) => {
+            if (err) {
+                console.error(err);
+                return res.status(500).send({ message: `Error uploading image: ${err.message}` });
+            }
+
+            // Access uploaded file information from req.file
+            const { filename, contentType } = req.file;
+
+            if (!filename) {
+                throw new Error("Filename not found in uploaded file");
+            }
+
+            // Respond with success message and file details
+            res.send({ message: "Uploaded", filename, contentType });
+
+        });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).send({ message: `Error processing image upload: ${error.message}` });
+    }
+};
+
+
+exports.getListFiles = async (req, res) => {
+    try {
+        await connectDB(); // Kết nối đến cơ sở dữ liệu MongoDB
+
+        const database = mongoose.connection.db; // Sử dụng kết nối đã thiết lập bởi Mongoose
+        const images = database.collection(dbConfig.imgBucket + ".files");
+
+        const cursor = images.find({});
+
+        if ((await cursor.count()) === 0) {
+            return res.status(500).send({
+                message: "No files found!",
+            });
+        }
+
+        let fileInfos = [];
+        await cursor.forEach((doc) => {
+            fileInfos.push({
+                name: doc.filename,
+                url: baseUrl + doc.filename,
+            });
+        });
+
+        return res.status(200).send(fileInfos);
+    } catch (error) {
+        return res.status(500).send({
+            message: error.message,
+        });
+    }
+};
+
+exports.download = async (req, res) => {
+    try {
+        await connectDB(); // Kết nối đến cơ sở dữ liệu MongoDB
+
+        const database = mongoose.connection.db; // Sử dụng kết nối đã thiết lập bởi Mongoose
+        const bucket = new GridFSBucket(database, {
+            bucketName: dbConfig.imgBucket,
+        });
+
+        let downloadStream = bucket.openDownloadStreamByName(req.params.name);
+
+        downloadStream.on("data", function (data) {
+            return res.status(200).write(data);
+        });
+
+        downloadStream.on("error", function (err) {
+            return res.status(404).send({ message: "Cannot download the Image!" });
+        });
+
+        downloadStream.on("end", () => {
+            return res.end();
+        });
+    } catch (error) {
+        return res.status(500).send({
+            message: error.message,
+        });
+    }
+};
+
+/*--------------------------------------------------------------------------*/
+
 
 exports.getUserAdminStatus = async (userMail) => {
     try {
