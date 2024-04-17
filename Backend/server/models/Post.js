@@ -14,8 +14,7 @@ const PostSchema = mongoose.Schema(
             type: String,
         },
         "image": {
-            type: String,
-            required: false
+            type: String
         },
         "Permalink": {
             type: String,

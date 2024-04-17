@@ -5,9 +5,10 @@ const mongoose = require('mongoose');
 const GridFSBucket = require("mongodb").GridFSBucket;
 const multer = require('multer');
 const path = require('path');  // Import the 'path' module for filename generation
+const connectDB = require('../config/db');
 
-
-
+const imgBucket = process.env.ImageBucket;
+const baseUrl = process.env.PORT;
 
 /*-------------------------Improvement---------------------------*/
 const storage = multer.diskStorage({
@@ -36,7 +37,7 @@ const upload = multer({
 exports.uploadImage = async (req, res) => {
     try {
         // Handle file upload using Multer middleware
-        await upload.single('avatar')(req, res, (err) => {
+        await upload.single('image')(req, res, (err) => {
             if (err) {
                 console.error(err);
                 return res.status(500).send({ message: `Error uploading image: ${err.message}` });
@@ -65,9 +66,9 @@ exports.getListFiles = async (req, res) => {
         await connectDB(); // Kết nối đến cơ sở dữ liệu MongoDB
 
         const database = mongoose.connection.db; // Sử dụng kết nối đã thiết lập bởi Mongoose
-        const images = database.collection(dbConfig.imgBucket + ".files");
+        const photos = database.collection(imgBucket + ".files");
 
-        const cursor = images.find({});
+        const cursor = photos.find({});
 
         if ((await cursor.count()) === 0) {
             return res.status(500).send({
@@ -97,7 +98,7 @@ exports.download = async (req, res) => {
 
         const database = mongoose.connection.db; // Sử dụng kết nối đã thiết lập bởi Mongoose
         const bucket = new GridFSBucket(database, {
-            bucketName: dbConfig.imgBucket,
+            bucketName: imgBucket,
         });
 
         let downloadStream = bucket.openDownloadStreamByName(req.params.name);

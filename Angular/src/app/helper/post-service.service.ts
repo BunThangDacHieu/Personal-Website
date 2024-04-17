@@ -10,7 +10,7 @@ export class PostServiceService {
   private uploadUrl: string = `${this.baseUrl}/upload`;
 
   constructor(private http: HttpClient) { }
-  uploadImage(imageData: any): Observable<any>{
+  uploadImage(imageData: FormData): Observable<any>{
     return this.http.post<any>(this.uploadUrl, imageData);
   }
   
