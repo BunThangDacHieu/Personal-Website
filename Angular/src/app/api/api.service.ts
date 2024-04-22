@@ -43,12 +43,12 @@ export class ApiService {
     return this.http.get<Posts[]>(`${this.postUrl}/${title}`);
   }
 
-  DeletePost(title: string): Observable<Posts[]> {
-    return this.http.delete<Posts[]>(`${this.postUrl}/${title}`);
+  DeletePost(Post_id: string): Observable<Posts[]> {
+    return this.http.delete<Posts[]>(`${this.postUrl}/${Post_id}`);
   }
 
   UpdatePostInformation(post: Posts): Observable<Posts> {
-    return this.http.put<Posts>(`${this.postUrl}/${post.Title}`, post);
+    return this.http.put<Posts>(`${this.postUrl}/${post.title}`, post);
   }
 
   CreateNewPost(post: Posts): Observable<Posts> {

@@ -11,4 +11,38 @@
             </div>
         </div>
     </div>
+
+    <div class="row justify-content-center mb-5">
+        <div class="col-md-10">
+            <div class="card shadow-effect">
+                <div class="card-body">
+                    <table class="table">
+                        <thead class="text-center">
+                            <tr>
+                                <td>No</td>
+                                <td>Post Image</td>
+                                <td>Title</td>
+                                <td>Category</td>
+                                <td>Date</td>
+                                <td>Action</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let post of Post; let i = index">
+                                <td>{{ i + 1 }}</td>
+                                <td>{{ post.image }}</td>
+                                <td>{{ post.title }}</td>
+                                <td>{{ post.Category }}</td>
+                                <td>{{ post.createdAt }}</td>
+                                <td>
+                                    <button class="btn btn-warning btn-sm" (click)="OnDelete(Post)">Delete</button>
+                                    <button>Edit</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

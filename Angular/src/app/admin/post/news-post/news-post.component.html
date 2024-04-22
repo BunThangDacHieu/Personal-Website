@@ -82,8 +82,8 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label for="">Content</label>
-                            <angular-editor [placeholder]="'Enter text here...'" formControlName="Content"
-                                name="Content"></angular-editor>
+                            <angular-editor [placeholder]="'Enter text here...'" formControlName="content"
+                                name="content"></angular-editor>
                             <div *ngIf="formPost.get('Content')?.errors?.required" class="alert alert-danger">
                                 Content must be at least 100 characters long
                             </div>

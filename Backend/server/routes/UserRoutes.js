@@ -21,7 +21,7 @@ router.delete("/users/:UserMail", UserController.DeleteUserbyUserMail);
 router.post("/post", UserController.CreateNewPost);
 router.get("/post", UserController.SeeAllPost);
 router.get("/post/:id", UserController.FindPostbyTitle);
-router.delete("/post/:id", UserController.DeletePost);
+router.delete("/post/:Post_id", UserController.DeletePost);
 router.put("/post/:id", UserController.UpdatePostInformation);
 
 //tạo 1 category mới

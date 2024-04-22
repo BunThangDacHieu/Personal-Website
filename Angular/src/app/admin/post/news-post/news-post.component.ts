@@ -6,6 +6,7 @@ import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { Posts } from '../../../model/Post';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { PostServiceService } from '../../../helper/post-service.service';
+import { error } from 'node:console';
 
 @Component({
   selector: 'app-news-post',
@@ -15,6 +16,7 @@ import { PostServiceService } from '../../../helper/post-service.service';
 export class NewsPostComponent implements OnInit {
   formPost!: FormGroup;
   categories:any = [];
+  Post:any = [];
   permalink: string = '';
   title: string = '';
   imgSrc: string = './assets/istockphoto-1147544807-612x612.jpg';
@@ -28,13 +30,14 @@ export class NewsPostComponent implements OnInit {
 
   ngOnInit(): void {
     this.SeeAllCategory();
+    this.SeeAllPost();
     this.formPost = this.formBuilder.group({
       title: ['', [Validators.required, Validators.minLength(10)]], // Validators để kiểm tra tính hợp lệ
       permalink: [{value: '', disabled: true}, Validators.required], // Giá trị mặc định và disabled
       excerpt: ['', [Validators.minLength(100)]],
       category: ['', Validators.required], // Validators để yêu cầu lựa chọn
       image: ['', Validators.required],
-      Content: ['', [Validators.required, Validators.minLength(100)]]
+      content: ['', [Validators.required, Validators.minLength(100)]]
   });
   }
   get fc(){
@@ -71,6 +74,18 @@ export class NewsPostComponent implements OnInit {
         console.error('Error loading categories:', error);
       }
     );
+  }
+
+  SeeAllPost(){
+    this.api.SeeAllPost().subscribe(
+      post =>{
+        this.Post = post;
+        console.table(this.Post);
+      },
+      error =>{
+        console.error('Error loading post:', error);
+      }
+    )
   }
   onSubmit() {
     if (this.formPost.valid) {

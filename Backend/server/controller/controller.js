@@ -365,12 +365,15 @@ exports.DeleteUserbyUserMail = async (req, res) => {
 //Hệ thống API, CRUD của bài Post
 exports.CreateNewPost = async (req, res) => {
     try {
+
+        console.log("req.body: ", req.body)
         const newPost = new Post({
-            title: req.body.Title,
-            content: req.body.Content,
+            category: req.body.Category,
+            title: req.body.title,
+            content: req.body.content,
             image: req.body.image,
-            permalink: req.body.Permalink,
-            excerpt: req.body.Excerpt
+            permalink: req.body.permalink,
+            excerpt: req.body.excerpt
         });
         const post = await newPost.save();
         return res.status(201).send(post);
@@ -383,11 +386,7 @@ exports.CreateNewPost = async (req, res) => {
 exports.SeeAllPost = async (req, res) => {
     try {
         const post = await Post.find({});
-        const responseData = {
-            count: post.length,
-            data: post,
-        };
-        return res.status(200).json(responseData);
+        return res.status(200).json(post);
     } catch (error) {
         console.log(error.message);
         res.status(500).send({ message: error.message });
@@ -396,7 +395,7 @@ exports.SeeAllPost = async (req, res) => {
 
 exports.FindPostbyTitle = async (req, res) => {
     try {
-        const title = req.params.Title;
+        const Post_id = req.params.Title;
         const post = await Post.findOne({ title });
         if (!post) {
             return res.status(404).json({ message: "Post not found" });
@@ -410,8 +409,8 @@ exports.FindPostbyTitle = async (req, res) => {
 
 exports.DeletePost = async (req, res) => {
     try {
-        const Title = req.params.Title;
-        const deletedPost = await Post.findByIdAndDelete(Title);
+        const { Post_id } = req.params;
+        const deletedPost = await Post.findOneAndDelete({ Post_id });
         if (!deletedPost) {
             return res.status(404).json({ message: "Post not found" });
         }

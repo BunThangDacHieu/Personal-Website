@@ -2,28 +2,35 @@ const mongoose = require('mongoose');
 
 const PostSchema = mongoose.Schema(
     {
+        "Post_id": {
+            type: mongoose.Schema.Types.ObjectId,
+            default: function () {
+                return new mongoose.Types.ObjectId(); // Sử dụng một hàm callback để tạo mới ObjectId
+            },
+            unique: true,
+        },
         "Category": {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Category' // Tham chiếu đến mô hình Category
         },
-        "Title": {
+        "title": {
             type: String,
             match: [/^[a-zA-Z0-9]+$/, "is invalid"],
         },
-        "Content": {
+        "content": {
             type: String,
         },
         "image": {
             type: String
         },
-        "Permalink": {
+        "permalink": {
             type: String,
         },
         "userId": {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User',
         },
-        "Excerpt": {
+        "excerpt": {
             type: String,
 
         },
