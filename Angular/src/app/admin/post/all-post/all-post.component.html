@@ -30,13 +30,16 @@
                         <tbody>
                             <tr *ngFor="let post of Post; let i = index">
                                 <td>{{ i + 1 }}</td>
-                                <td>{{ post.image }}</td>
-                                <td>{{ post.title }}</td>
+                                <td><img [src]="post.image" width="150" height="200" /></td>
+                                <td>
+                                    {{ post.title ? post.title.slice(0, 20) + (post.title.length > 20 ? '...' : '') : ''
+                                    }}
+                                </td>
                                 <td>{{ post.Category }}</td>
                                 <td>{{ post.createdAt }}</td>
                                 <td>
-                                    <button class="btn btn-warning btn-sm" (click)="OnDelete(Post)">Delete</button>
-                                    <button>Edit</button>
+                                    <button class="btn btn-warning btn-sm" (click)="OnDelete(post)">Delete</button>
+                                    <button class="btn btn-warning btn-sm">Edit</button>
                                 </td>
                             </tr>
                         </tbody>

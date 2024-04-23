@@ -368,7 +368,7 @@ exports.CreateNewPost = async (req, res) => {
 
         console.log("req.body: ", req.body)
         const newPost = new Post({
-            category: req.body.Category,
+            Category: req.body.category,
             title: req.body.title,
             content: req.body.content,
             image: req.body.image,
@@ -409,8 +409,10 @@ exports.FindPostbyTitle = async (req, res) => {
 
 exports.DeletePost = async (req, res) => {
     try {
-        const { Post_id } = req.params;
-        const deletedPost = await Post.findOneAndDelete({ Post_id });
+
+        const { id } = req.params;
+        console.log(id, 'gg');
+        const deletedPost = await Post.findOneAndDelete(id);
         if (!deletedPost) {
             return res.status(404).json({ message: "Post not found" });
         }

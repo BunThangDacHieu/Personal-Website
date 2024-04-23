@@ -14,6 +14,7 @@ import { error } from 'node:console';
   styleUrls: ['./news-post.component.css']
 })
 export class NewsPostComponent implements OnInit {
+  base64: any;
   formPost!: FormGroup;
   categories:any = [];
   Post:any = [];
@@ -56,8 +57,10 @@ export class NewsPostComponent implements OnInit {
   showPreview($event: any) {
     if ($event && $event.target && $event.target.files && $event.target.files[0]) {
       const reader = new FileReader();
+      
       reader.onload = (e) => {
         this.imgSrc = e.target?.result as string;
+        this.base64 = reader.result  
       }
       reader.readAsDataURL($event.target.files[0]);
       this.selectedImg = $event.target.files[0];
@@ -88,11 +91,14 @@ export class NewsPostComponent implements OnInit {
     )
   }
   onSubmit() {
+  // console.log(this.formPost.value, this.base64);
+  // return;
     if (this.formPost.valid) {
       const newPost: Posts = this.formPost.value;
-      
+      newPost.image = this.base64;
       this.api.CreateNewPost(newPost).subscribe(
         () => {
+          
           this.toastr.success('Post saved successfully');
           this.formPost.reset();
           console.log(newPost);

@@ -10,8 +10,7 @@ const PostSchema = mongoose.Schema(
             unique: true,
         },
         "Category": {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Category' // Tham chiếu đến mô hình Category
+            type: String,
         },
         "title": {
             type: String,

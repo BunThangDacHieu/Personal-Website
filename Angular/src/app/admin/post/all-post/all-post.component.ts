@@ -11,6 +11,7 @@ import { Posts } from '../../../model/Post';
   styleUrl: './all-post.component.css'
 })
 export class AllPostComponent {
+  base64: any;
   Post:any = [];
   constructor(private api: ApiService,
     private formBuilder: FormBuilder,
@@ -33,6 +34,7 @@ export class AllPostComponent {
     );
   }
   OnDelete(Post: Posts) { 
+    console.log(Post,'acd')
     const PostId = Post.Post_id;
     this.api.DeletePost(PostId).subscribe(
       () => {
