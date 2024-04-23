@@ -3,7 +3,7 @@
         <div class="col-md-12">
             <div class="card shadow-effect bg-secondary-theme">
                 <div class="card-body text-center">
-                    <h3 class="text-theme-center">All Blog Post</h3>
+                    <h3>All Blog Post</h3>
                     <p>Form here you can edit Blog Detail</p>
                     <button class="btn btn-info bg-theme" routerLink="/dashboard/post/new">Add New Post</button>
                     <button class="btn btn-warning ml-2" routerLink="/dashboard">Back to Dashboard</button>
@@ -12,17 +12,19 @@
         </div>
     </div>
 
-    <div class="row justify-content-center mb-5">
-        <div class="col-md-10">
+    <div class="row justify-content-center mb-8">
+        <div class="col-md-12">
             <div class="card shadow-effect">
                 <div class="card-body">
-                    <table class="table">
+                    <table class="table table-bordered">
                         <thead class="text-center">
                             <tr>
                                 <td>No</td>
                                 <td>Post Image</td>
                                 <td>Title</td>
+                                <td width="100">Content</td>
                                 <td>Category</td>
+                                <td width="300">Excerpt</td>
                                 <td>Date</td>
                                 <td>Action</td>
                             </tr>
@@ -30,15 +32,23 @@
                         <tbody>
                             <tr *ngFor="let post of Post; let i = index">
                                 <td>{{ i + 1 }}</td>
-                                <td><img [src]="post.image" width="150" height="200" /></td>
-                                <td>
+                                <td><img class="img img-fluid" [src]="post.image" width="150" height="200" /></td>
+                                <td width="100">
                                     {{ post.title ? post.title.slice(0, 20) + (post.title.length > 20 ? '...' : '') : ''
                                     }}
                                 </td>
-                                <td>{{ post.Category }}</td>
-                                <td>{{ post.createdAt }}</td>
+                                <td width="100" class="text-wrap"
+                                    style="max-width: 300px; max-height: 50px; overflow: hidden;">
+                                    {{ post.content }}
+                                </td>
+                                <td width="70">{{ post.Category }}</td>
+                                <td width="300" class="text-wrap"
+                                    style="max-width: 300px; max-height: 50px; overflow: hidden;">
+                                    {{ post.excerpt }}
+                                </td>
+                                <td>{{ post.createdAt | date:'dd/MM/yyyy' }}</td>
                                 <td>
-                                    <button class="btn btn-warning btn-sm" (click)="OnDelete(post)">Delete</button>
+                                    <button class="btn btn-danger btn-sm" (click)="OnDelete(post)">Delete</button>
                                     <button class="btn btn-warning btn-sm">Edit</button>
                                 </td>
                             </tr>
