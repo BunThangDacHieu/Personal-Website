@@ -365,15 +365,13 @@ exports.DeleteUserbyUserMail = async (req, res) => {
 //Hệ thống API, CRUD của bài Post
 exports.CreateNewPost = async (req, res) => {
     try {
-
-        console.log("req.body: ", req.body)
         const newPost = new Post({
             Category: req.body.category,
             title: req.body.title,
             content: req.body.content,
             image: req.body.image,
             permalink: req.body.permalink,
-            excerpt: req.body.excerpt
+            excerpt: req.body.excerpt,
         });
         const post = await newPost.save();
         return res.status(201).send(post);

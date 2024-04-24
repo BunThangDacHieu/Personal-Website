@@ -37,20 +37,21 @@
                                     {{ post.title ? post.title.slice(0, 20) + (post.title.length > 20 ? '...' : '') : ''
                                     }}
                                 </td>
-                                <td width="100" class="text-wrap"
+                                <td width="300" class="text-wrap"
                                     style="max-width: 300px; max-height: 50px; overflow: hidden;">
-                                    {{ post.content }}
+                                    <div [innerHTML]="limitText(post.content, 50)"></div>
                                 </td>
                                 <td width="70">{{ post.Category }}</td>
                                 <td width="300" class="text-wrap"
                                     style="max-width: 300px; max-height: 50px; overflow: hidden;">
-                                    {{ post.excerpt }}
+                                    {{ limitText(post.excerpt, 50) }}
                                 </td>
                                 <td>{{ post.createdAt | date:'dd/MM/yyyy' }}</td>
-                                <td>
+                                <td class="post-item">
                                     <button class="btn btn-danger btn-sm" (click)="OnDelete(post)">Delete</button>
-                                    <button class="btn btn-warning btn-sm">Edit</button>
+                                    <button class="btn btn-warning btn-sm" (click)="OpenAddEditPost()">Edit</button>
                                 </td>
+
                             </tr>
                         </tbody>
                     </table>

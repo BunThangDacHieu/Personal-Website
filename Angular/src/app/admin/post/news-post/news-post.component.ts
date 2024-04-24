@@ -26,7 +26,7 @@ export class NewsPostComponent implements OnInit {
   constructor(private api: ApiService, 
               private toastr: ToastrService,
               private formBuilder: FormBuilder,
-              private postService: PostServiceService) 
+              private postService: PostServiceService,) 
             {}
 
   ngOnInit(): void {
@@ -44,7 +44,7 @@ export class NewsPostComponent implements OnInit {
   get fc(){
     return this.formPost.controls
   }
-
+  
   onTitleChange($event: any) {
     this.title = $event.target.value;
     this.generatePermalink();
@@ -91,8 +91,7 @@ export class NewsPostComponent implements OnInit {
     )
   }
   onSubmit() {
-  // console.log(this.formPost.value, this.base64);
-  // return;
+
     if (this.formPost.valid) {
       const newPost: Posts = this.formPost.value;
       newPost.image = this.base64;

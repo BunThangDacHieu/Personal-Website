@@ -14,7 +14,6 @@ const PostSchema = mongoose.Schema(
         },
         "title": {
             type: String,
-            match: [/^[a-zA-Z0-9]+$/, "is invalid"],
         },
         "content": {
             type: String,
