@@ -6,13 +6,14 @@
 @import 'primeicons/primeicons.css';
 @import 'ngx-toastr/toastr';
 @import '../node_modules/font-awesome/css/font-awesome.css';
+@import "../node_modules/angular-calendar/css/angular-calendar.css";
 
 :root {
     --primary-color: #026467;
     --secondary-color: #E5F5EA;
     --body-text-color: #596392;
     --navbar-footer-color: #F9F9F9;
-}
+}   
 
 body{
     font-family: 'Roboto', sans-serif;

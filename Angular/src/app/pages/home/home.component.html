@@ -2,45 +2,25 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12 text-center mt-5">
-                <h2 class="text-white">Featured-Post</h2>
-                <p class="text-white">The social classes of the middle ages consisted of the upper, middle, and lower
-                    classes. Within the upper class were kings/monarchs, nobles, knights, and clergy. In the middle were
-                    merchants, doctors, and lower clergy. The lower class consisted of peasants/serfs.
-                </p>
+                <h2>Featured-Post</h2>
+                <p class="text-white">Try some blog that you can find interesting!</p>
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-3">
-                <app-post-card></app-post-card>
-            </div>
-            <div class="col-lg-3">
-                <app-post-card></app-post-card>
-            </div>
-            <div class="col-lg-3">
-                <app-post-card></app-post-card>
-            </div>
-            <div class="col-lg-3">
-                <app-post-card></app-post-card>
+            <div class="col-lg-3" *ngFor="let post of Post | slice:0:4">
+                <app-post-card [post]="post"></app-post-card>
             </div>
         </div>
     </div>
 </section>
 
-
 <section class="container mt-5">
     <div class="col-md-12 text-center">
-        <h2>Lastest Post</h2>
-        <p>The social classes of the middle ages</p>
+        <h2>Latest Post</h2>
     </div>
     <div class="row">
-        <div class="col-md-4 mt-3">
-            <app-post-card></app-post-card>
-        </div>
-        <div class="col-md-4 mt-3">
-            <app-post-card></app-post-card>
-        </div>
-        <div class="col-md-4 mt-3">
-            <app-post-card></app-post-card>
+        <div class="col-md-4 mt-3" *ngFor="let post of Post | slice:0:3">
+            <app-post-card [post]="post"></app-post-card>
         </div>
     </div>
 </section>

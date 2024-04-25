@@ -1,18 +1,13 @@
-<div class="card">
-    <img src="https://images.pexels.com/photos/19294343/pexels-photo-19294343/free-photo-of-thanh-ph-ngh-thu-t-m-c-d-ng-ph.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-        alt="post-image" class="card-img-top">
+<div class="card" *ngIf="post">
+    <img [src]="post.image" alt="post-image" class="card-img-top">
     <div class="card-body row">
-        <small class="bg-light text-danger text-center col-md-3">Design</small>
+        <small class="bg-light text-danger text-center col-md-4">{{post.Category}}</small>
         <small class="bg-light text-success text-center col-md-4">Featured</small>
         <small class="bg-light text-info text-center col-md-4">Views - 100</small>
 
-        <h5 class="mt-1">Middle ages social structure</h5>
-        <p>The social classes of the middle ages consisted of the upper, middle, and lower classes. Within the upper
-            class were kings/monarchs, nobles, knights, and clergy. In the middle were merchants, doctors, and lower
-            clergy. The lower class consisted of peasants/serfs.</p>
-        <small class="bg-light text-warning text-center mr-3">LAST UPDATED - March 30, 2024</small>
-
+        <h3 class="mt-1">{{post.title}}</h3>
+        <p>{{ limitText(post.excerpt, 50) }}</p>
+        <small class="bg-light text-warning text-center mr-3">LAST UPDATED - {{post.updatedAt | date:'dd/MM/yyyy'
+            }}</small>
     </div>
-
-
 </div>

@@ -100,7 +100,6 @@ export class NewsPostComponent implements OnInit {
           
           this.toastr.success('Post saved successfully');
           this.formPost.reset();
-          console.log(newPost);
         },
         (error) => {
           console.error('Error saving post:', error);
