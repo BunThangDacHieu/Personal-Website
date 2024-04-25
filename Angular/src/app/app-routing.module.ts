@@ -20,7 +20,7 @@ const routes: Routes = [
 
   //User
   {path: '', component: HomeComponent,},
-  {path: 'category', component: SingleCategoryComponent},
+  {path: 'category:id', component: SingleCategoryComponent},
   {path:  'post', component: SinglePostComponent},
   {path: 'about', component: AboutUsComponent},
   {path: 'contact', component: ContactUsComponent},

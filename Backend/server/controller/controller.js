@@ -243,7 +243,19 @@ exports.Update_Category_Information = async (req, res) => {
 };
 
 
-
+exports.FindCategorybyId = async (req, res) => {
+    try {
+        const Category_id = req.params.Category_id;
+        const category = await Category.FindUserbyCategoryId(Category_id);
+        if (!category) {
+            return res.status(404).json({ message: "Category not found" });
+        }
+        return res.status(200).json(category);
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).send({ message: error.message });
+    }
+};
 //Xóa Tên Thể Loại.
 exports.Delete_Category_by_Id = async (req, res) => {
     try {
@@ -391,10 +403,10 @@ exports.SeeAllPost = async (req, res) => {
     }
 };
 
-exports.FindPostbyTitle = async (req, res) => {
+exports.FindPostbyId = async (req, res) => {
     try {
         const Post_id = req.params.Title;
-        const post = await Post.findOne({ title });
+        const post = await Post.findOne({ Post_id });
         if (!post) {
             return res.status(404).json({ message: "Post not found" });
         }

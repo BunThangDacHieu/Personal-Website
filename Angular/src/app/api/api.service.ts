@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Category } from '../model/Category';
 import { Posts } from '../model/Post';
@@ -30,6 +30,16 @@ export class ApiService {
     return this.http.put<Category>(`${this.categoryUrl}/${category.Category_id}`, updatedCategory);
   }
 
+  findCategoryById(categoryId: string): Observable<Category[]> {
+    return this.http.get<Category[]>(`${this.categoryUrl}/${categoryId}`)
+      .pipe(
+        catchError(error => {
+          console.error('Error fetching category:', error);
+          return throwError(() => new Error('Error loading category'));
+        })
+      );
+  }
+  
   Delete_Category_by_Id(Category_id: string): Observable<Category[]> {
     return this.http.delete<Category[]>(`${this.categoryUrl}/${Category_id}`);
   }
